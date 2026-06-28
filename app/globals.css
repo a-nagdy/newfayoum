@@ -1,26 +1,80 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #233a72;
+  --primary: #233a72;
+  --primary-light: #2f4d8f;
+  --secondary: #c8a85a;
+  --secondary-hover: #b8964f;
+  --footer: #1a2440;
+  --card: #ffffff;
+  --card-elevated: #f4f6fa;
+  --border: rgba(35, 58, 114, 0.12);
+  --muted: #f4f6fa;
+  --muted-foreground: #64748b;
+
+  --navy: #233a72;
+  --navy-dark: #1a2440;
+  --navy-light: #2f4d8f;
+  --gold: #c8a85a;
+  --gold-hover: #b8964f;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* Keep light theme even when OS prefers dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: light;
+    --background: #ffffff;
+    --foreground: #233a72;
+    --card: #ffffff;
+    --card-elevated: #f4f6fa;
+    --muted: #f4f6fa;
+    --muted-foreground: #64748b;
   }
 }
 
+@theme inline {
+  --color-background: #ffffff;
+  --color-foreground: #233a72;
+  --color-primary: #233a72;
+  --color-primary-light: #2f4d8f;
+  --color-secondary: #c8a85a;
+  --color-secondary-hover: #b8964f;
+  --color-footer: #1a2440;
+  --color-card: #ffffff;
+  --color-card-elevated: #f4f6fa;
+  --color-border: rgba(35, 58, 114, 0.12);
+  --color-muted: #f4f6fa;
+  --color-muted-foreground: #64748b;
+  --color-navy: #233a72;
+  --color-navy-dark: #1a2440;
+  --color-navy-light: #2f4d8f;
+  --color-gold: #c8a85a;
+  --color-gold-hover: #b8964f;
+  --font-sans: var(--font-geist-sans);
+  --font-arabic: var(--font-cairo);
+}
+
+html {
+  background-color: #ffffff;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
+  color: #233a72;
+  font-family: var(--font-sans), var(--font-arabic), Arial, Helvetica, sans-serif;
+}
+
+[dir="rtl"] body {
+  font-family: var(--font-arabic), var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+main {
+  background-color: #ffffff;
+}
+
+input[type="range"] {
+  accent-color: #c8a85a;
 }

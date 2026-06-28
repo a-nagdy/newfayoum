@@ -1,0 +1,14 @@
+.admin-theme {
+  --admin-primary: #233a72;
+  --admin-secondary: #c8a85a;
+  --admin-secondary-hover: #b8964f;
+  --admin-footer: #1a2440;
+  --admin-card: #111827;
+  --admin-muted: #9ca3af;
+}
+
+.admin-theme input,
+.admin-theme textarea,
+.admin-theme select {
+  color-scheme: dark;
+}

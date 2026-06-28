@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "services": "خدماتنا",
+    "projects": "مشاريعنا",
+    "contact": "تواصل معنا",
+    "products": "المنتجات",
+    "blog": "المدونة",
+    "login": "تسجيل / دخول",
+    "betak": "بيتك",
+    "betakShare": "بيتك المشترك",
+    "units": "الوحدات",
+    "blogs": "المدونات"
+  },
+  "hero": {
+    "cta": "استكشف الوحدات"
+  },
+  "stats": {
+    "unitsSold": "وحدة مباعة",
+    "clients": "عميل",
+    "totalInvestments": "إجمالي الاستثمارات",
+    "annualReturn": "العائد السنوي"
+  },
+  "featured": {
+    "title": "وحدات مميزة",
+    "viewAll": "عرض الكل"
+  },
+  "newFayoum": {
+    "title": "نيو الفيوم",
+    "description": "اكتشف وحدات استثمارية في أحد أسرع المناطق نمواً في مصر."
+  },
+  "product": {
+    "details": "التفاصيل",
+    "bedrooms": "غرف نوم",
+    "bathrooms": "حمام",
+    "area": "م²",
+    "price": "السعر",
+    "location": "الموقع",
+    "postedAt": "تاريخ النشر",
+    "related": "وحدات ذات صلة",
+    "backToProducts": "العودة للمنتجات",
+    "allCategories": "جميع الفئات"
+  },
+  "investment": {
+    "title": "استثمر مع الآخرين وامتلك جزءاً من عقار",
+    "subtitle": "ابدأ بحد أدنى منخفض للاستثمار وحقق عوائد تنافسية.",
+    "totalValue": "القيمة الإجمالية",
+    "expectedReturn": "العائد المتوقع",
+    "minInvestment": "الحد الأدنى للاستثمار",
+    "funded": "تم التمويل",
+    "investNow": "استثمر الآن",
+    "viewAll": "عرض كل فرص الاستثمار"
+  },
+  "calculator": {
+    "title": "احسب عائدك الاستثماري",
+    "description": "حرّك المنزلقات لتقدير عوائدك المحتملة.",
+    "propertyValue": "قيمة العقار",
+    "shares": "عدد الحصص",
+    "expectedReturn": "العائد المتوقع %",
+    "calculate": "احسب الاستثمار",
+    "estimatedReturn": "العائد السنوي المتوقع"
+  },
+  "features": {
+    "title": "لماذا تختار بيتك؟"
+  },
+  "testimonials": {
+    "title": "آراء مستثمرينا"
+  },
+  "blog": {
+    "title": "أحدث المقالات",
+    "viewAll": "عرض الكل",
+    "readMore": "اقرأ المزيد",
+    "minRead": "دقائق قراءة",
+    "backToBlog": "العودة للمدونة",
+    "related": "مقالات ذات صلة"
+  },
+  "footer": {
+    "quickLinks": "روابط سريعة",
+    "contactUs": "تواصل معنا",
+    "whatsapp": "تواصل عبر واتساب",
+    "privacy": "سياسة الخصوصية",
+    "terms": "الشروط والأحكام",
+    "rights": "جميع الحقوق محفوظة."
+  },
+  "productsPage": {
+    "title": "منتجاتنا",
+    "subtitle": "تصفح جميع الوحدات العقارية وفرص الاستثمار المتاحة.",
+    "filterByCategory": "تصفية حسب الفئة"
+  },
+  "common": {
+    "currency": "ج.م",
+    "million": "M",
+    "percent": "%"
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "projects": "Projects",
+    "contact": "Contact Us",
+    "products": "Products",
+    "blog": "Blog",
+    "login": "Register / Login"
+  },
+  "hero": {
+    "cta": "Explore Units"
+  },
+  "stats": {
+    "unitsSold": "Units Sold",
+    "clients": "Clients",
+    "totalInvestments": "Total Investments",
+    "annualReturn": "Annual Return"
+  },
+  "featured": {
+    "title": "Featured Units",
+    "viewAll": "View All"
+  },
+  "newFayoum": {
+    "title": "New Fayoum",
+    "description": "Discover investment units in one of Egypt's fastest-growing areas."
+  },
+  "product": {
+    "details": "Details",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "area": "sqm",
+    "price": "Price",
+    "location": "Location",
+    "postedAt": "Posted",
+    "related": "Related Units",
+    "backToProducts": "Back to Products",
+    "allCategories": "All Categories"
+  },
+  "investment": {
+    "title": "Invest with others and own a part of a property",
+    "subtitle": "Start with a low minimum investment and earn competitive returns.",
+    "totalValue": "Total Value",
+    "expectedReturn": "Expected Return",
+    "minInvestment": "Min. Investment",
+    "funded": "Funded",
+    "investNow": "Invest Now",
+    "viewAll": "View All Investment Opportunities"
+  },
+  "calculator": {
+    "title": "Calculate Your Investment Return",
+    "description": "Adjust the sliders to estimate your potential returns.",
+    "propertyValue": "Property Value",
+    "shares": "Number of Shares",
+    "expectedReturn": "Expected Return %",
+    "calculate": "Calculate Investment",
+    "estimatedReturn": "Estimated Annual Return"
+  },
+  "features": {
+    "title": "Why Choose Bitak?"
+  },
+  "testimonials": {
+    "title": "Our Investors' Opinions"
+  },
+  "blog": {
+    "title": "Latest Articles",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "minRead": "min read",
+    "backToBlog": "Back to Blog",
+    "related": "Related Articles"
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "whatsapp": "Contact via WhatsApp",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "rights": "All rights reserved."
+  },
+  "productsPage": {
+    "title": "Our Products",
+    "subtitle": "Browse all available real estate units and investment opportunities.",
+    "filterByCategory": "Filter by category"
+  },
+  "common": {
+    "currency": "EGP",
+    "million": "M",
+    "percent": "%"
+  }
+}
