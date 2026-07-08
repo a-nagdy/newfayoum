@@ -3,7 +3,6 @@ import type { Locale } from "@/i18n/routing";
 import { getSiteSettings } from "@/lib/api/client";
 import { Phone } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import Image from "next/image";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 interface HeaderProps {
@@ -27,12 +26,12 @@ export async function Header({ locale }: HeaderProps) {
     <header className="sticky top-0 z-50 border-b border-border bg-primary text-white shadow-sm backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 lg:px-6">
         <Link href="/" className="shrink-0">
-          <Image
+          <img
             src="/assets/LogoBetakSvg.svg"
             alt={settings.logoText}
             width={63}
             height={60}
-            priority
+            className="h-[60px] w-auto"
           />
         </Link>
 

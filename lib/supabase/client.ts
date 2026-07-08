@@ -9,6 +9,12 @@ export function getSupabase() {
   const key = process.env.SUPABASE_API_KEY?.trim().replace(/^["']+|["']+$/g, "");
 
   if (!url || !key) {
+    console.error(
+      "[supabase] Missing env vars. SUPABASE_URL:",
+      url ? "set" : "MISSING",
+      "SUPABASE_API_KEY:",
+      key ? "set" : "MISSING",
+    );
     throw new Error("SUPABASE_URL and SUPABASE_API_KEY must be set");
   }
 
@@ -22,5 +28,8 @@ export function getSupabase() {
 }
 
 export function throwIfError(error: { message: string } | null) {
-  if (error) throw new Error(error.message);
+  if (error) {
+    console.error("[supabase]", error.message);
+    throw new Error(error.message);
+  }
 }
