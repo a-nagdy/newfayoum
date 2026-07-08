@@ -10,6 +10,7 @@ import {
   SelectField,
   TextInput,
 } from "./FormControls";
+import { ImageUploadField } from "./ImageUploadField";
 
 export function PropertiesEditor({
   initialData,
@@ -89,13 +90,11 @@ export function PropertiesEditor({
               }
             />
           </div>
-          <Field label="Image URL">
-            <TextInput
-              value={item.image}
-              dir="ltr"
-              onChange={(image) => onChange({ ...item, image })}
-            />
-          </Field>
+          <ImageUploadField
+            label="Property image"
+            value={item.image}
+            onChange={(image) => onChange({ ...item, image })}
+          />
           <div className="grid gap-4 sm:grid-cols-3">
             <Field label="Bedrooms">
               <TextInput

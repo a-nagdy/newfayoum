@@ -14,3 +14,44 @@ model ContentSection {
 
   @@map("content_sections")
 }
+
+model Category {
+  id        String    @id @db.VarChar(36)
+  slug      String    @unique @db.VarChar(64)
+  nameAr    String    @map("name_ar") @db.VarChar(128)
+  nameEn    String    @map("name_en") @db.VarChar(128)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  products  Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id                 String   @id @db.VarChar(36)
+  slug               String   @unique @db.VarChar(128)
+  titleAr            String   @map("title_ar") @db.VarChar(255)
+  titleEn            String   @map("title_en") @db.VarChar(255)
+  locationAr         String   @map("location_ar") @db.VarChar(255)
+  locationEn         String   @map("location_en") @db.VarChar(255)
+  price              Int
+  currency           String   @default("EGP") @db.VarChar(8)
+  image              String   @db.Text
+  bedrooms           Int?
+  bathrooms          Int?
+  area               Int?
+  postedAt           DateTime @map("posted_at") @db.Date
+  badges             Json?
+  featured           Boolean  @default(false)
+  isNew              Boolean  @default(false) @map("is_new")
+  isShared           Boolean  @default(false) @map("is_shared")
+  expectedReturn     Int?     @map("expected_return")
+  monthlyInstallment Int?     @map("monthly_installment")
+  categoryId         String   @map("category_id") @db.VarChar(36)
+  category           Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  @@index([categoryId])
+  @@map("products")
+}

@@ -4,6 +4,7 @@ import type { Testimonial } from "@/lib/api/types";
 import { newId } from "@/lib/admin/utils";
 import { CollectionManager } from "./CollectionManager";
 import { Field, LocalizedField, TextInput } from "./FormControls";
+import { ImageUploadField } from "./ImageUploadField";
 
 export function TestimonialsEditor({
   initialData,
@@ -43,13 +44,11 @@ export function TestimonialsEditor({
             value={item.role}
             onChange={(role) => onChange({ ...item, role })}
           />
-          <Field label="Avatar image URL">
-            <TextInput
-              value={item.avatar}
-              dir="ltr"
-              onChange={(avatar) => onChange({ ...item, avatar })}
-            />
-          </Field>
+          <ImageUploadField
+            label="Avatar image"
+            value={item.avatar}
+            onChange={(avatar) => onChange({ ...item, avatar })}
+          />
           <Field label="Rating (1–5)">
             <TextInput
               type="number"

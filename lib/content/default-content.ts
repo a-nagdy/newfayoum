@@ -394,6 +394,14 @@ const promo: PromoBanner = {
   ctaHref: "/products?category=chalets",
 };
 
+export function getDefaultCategories(): ProductCategory[] {
+  return categories.map((item) => ({ ...item }));
+}
+
+export function getDefaultProducts(): Product[] {
+  return products.map((item) => ({ ...item }));
+}
+
 export function getDefaultContent(): ContentStore {
   return {
     settings,

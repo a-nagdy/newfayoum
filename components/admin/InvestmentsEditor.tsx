@@ -9,6 +9,7 @@ import {
   LocalizedField,
   TextInput,
 } from "./FormControls";
+import { ImageUploadField } from "./ImageUploadField";
 
 export function InvestmentsEditor({
   initialData,
@@ -57,13 +58,11 @@ export function InvestmentsEditor({
             value={item.location}
             onChange={(location) => onChange({ ...item, location })}
           />
-          <Field label="Image URL">
-            <TextInput
-              value={item.image}
-              dir="ltr"
-              onChange={(image) => onChange({ ...item, image })}
-            />
-          </Field>
+          <ImageUploadField
+            label="Investment image"
+            value={item.image}
+            onChange={(image) => onChange({ ...item, image })}
+          />
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Total value (EGP)">
               <TextInput

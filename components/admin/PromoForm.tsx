@@ -9,6 +9,7 @@ import {
   SaveButton,
   TextInput,
 } from "./FormControls";
+import { ImageUploadField } from "./ImageUploadField";
 
 export function PromoForm({ initialData }: { initialData: PromoBanner }) {
   const [data, setData] = useState(initialData);
@@ -52,13 +53,11 @@ export function PromoForm({ initialData }: { initialData: PromoBanner }) {
             onChange={(ctaHref) => setData({ ...data, ctaHref })}
           />
         </Field>
-        <Field label="Image URL">
-          <TextInput
-            value={data.image}
-            dir="ltr"
-            onChange={(image) => setData({ ...data, image })}
-          />
-        </Field>
+        <ImageUploadField
+          label="Promo image"
+          value={data.image}
+          onChange={(image) => setData({ ...data, image })}
+        />
         <SaveButton onSave={save} />
       </div>
     </div>

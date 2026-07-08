@@ -1,11 +1,13 @@
-import { getSection } from "@/lib/content/store";
 import { PropertiesEditor } from "@/components/admin/PropertiesEditor";
+import { listCategories } from "@/lib/db/categories";
+import { listProducts } from "@/lib/db/products";
 
 export default async function AdminProductsPage() {
   const [products, categories] = await Promise.all([
-    getSection("products"),
-    getSection("categories"),
+    listProducts(),
+    listCategories(),
   ]);
+
   return (
     <PropertiesEditor initialData={products} categories={categories} />
   );

@@ -1,8 +1,12 @@
 import type { ContentKey, ContentStore } from "@/lib/api/types";
+import { listCategories } from "@/lib/db/categories";
+import { listProducts } from "@/lib/db/products";
 import { prisma } from "@/lib/db/prisma";
 import { getDefaultContent } from "./default-content";
 
-const SECTION_KEYS = Object.keys(getDefaultContent()) as ContentKey[];
+const SECTION_KEYS = (Object.keys(getDefaultContent()) as ContentKey[]).filter(
+  (key) => key !== "categories" && key !== "products",
+);
 
 function assignSection<K extends ContentKey>(
   store: ContentStore,
@@ -44,7 +48,12 @@ export async function readStore(): Promise<ContentStore> {
     }
   }
 
-  return store;
+  const [categories, products] = await Promise.all([
+    listCategories(),
+    listProducts(),
+  ]);
+
+  return { ...store, categories, products };
 }
 
 export async function getSection<K extends ContentKey>(

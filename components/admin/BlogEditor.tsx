@@ -4,6 +4,7 @@ import type { BlogPost } from "@/lib/api/types";
 import { newId, slugify, todayISO } from "@/lib/admin/utils";
 import { CollectionManager } from "./CollectionManager";
 import { Field, LocalizedField, TextInput } from "./FormControls";
+import { ImageUploadField } from "./ImageUploadField";
 
 export function BlogEditor({ initialData }: { initialData: BlogPost[] }) {
   return (
@@ -58,13 +59,11 @@ export function BlogEditor({ initialData }: { initialData: BlogPost[] }) {
             onChange={(content) => onChange({ ...item, content })}
             multiline
           />
-          <Field label="Featured image URL">
-            <TextInput
-              value={item.image}
-              dir="ltr"
-              onChange={(image) => onChange({ ...item, image })}
-            />
-          </Field>
+          <ImageUploadField
+            label="Featured image"
+            value={item.image}
+            onChange={(image) => onChange({ ...item, image })}
+          />
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Published date">
               <TextInput

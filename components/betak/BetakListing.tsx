@@ -1,11 +1,11 @@
 "use client";
 
-import { LayoutGrid, MapPin, SlidersHorizontal } from "lucide-react";
 import { usePathname, useRouter } from "@/i18n/navigation";
-import { useSearchParams } from "next/navigation";
+import type { Locale } from "@/i18n/routing";
 import type { Product, ProductCategory } from "@/lib/api/types";
 import { pickLocalized } from "@/lib/api/types";
-import type { Locale } from "@/i18n/routing";
+import { SlidersHorizontal } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { BetakPropertyCard } from "./BetakPropertyCard";
 
 const PAGE_SIZE = 6;
@@ -100,8 +100,7 @@ export function BetakListing({
                 type="button"
                 onClick={() =>
                   navigate({
-                    category:
-                      activeCategory === cat.slug ? null : cat.slug,
+                    category: activeCategory === cat.slug ? null : cat.slug,
                   })
                 }
                 className={pillClass(activeCategory === cat.slug)}
@@ -112,16 +111,14 @@ export function BetakListing({
 
             <button
               type="button"
-              onClick={() =>
-                navigate({ shared: sharedOnly ? null : "1" })
-              }
+              onClick={() => navigate({ shared: sharedOnly ? null : "1" })}
               className={pillClass(sharedOnly)}
             >
               {labels.sharedOnly}
             </button>
           </div>
 
-          <div className="flex items-center gap-2 self-end lg:self-auto">
+          {/* <div className="flex items-center gap-2 self-end lg:self-auto">
             <button
               type="button"
               aria-label="Grid view"
@@ -136,7 +133,7 @@ export function BetakListing({
             >
               <MapPin className="h-4 w-4" />
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
 

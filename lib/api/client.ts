@@ -1,5 +1,11 @@
 import type { Locale } from "@/i18n/routing";
 import { getSection } from "@/lib/content/store";
+import { listCategories } from "@/lib/db/categories";
+import {
+  countProducts,
+  getProductBySlug as getProductBySlugFromDb,
+  listProducts,
+} from "@/lib/db/products";
 import type {
   BlogPost,
   HeroContent,
@@ -26,7 +32,7 @@ export async function getHeroContent(_locale: Locale) {
 }
 
 export async function getCategories(_locale: Locale) {
-  return getSection("categories");
+  return listCategories();
 }
 
 export async function getBetakPageContent(_locale: Locale) {
@@ -40,28 +46,16 @@ export async function getProducts(
     sharedOnly?: boolean;
   },
 ) {
-  const products = await getSection("products");
-  let filtered = products;
-
-  if (options?.categorySlug) {
-    filtered = filtered.filter((p) => p.categorySlug === options.categorySlug);
-  }
-
-  if (options?.sharedOnly) {
-    filtered = filtered.filter((p) => p.isShared);
-  }
-
-  return filtered;
+  return listProducts(options);
 }
 
 export async function getFeaturedProducts(_locale: Locale) {
-  const products = await getSection("products");
+  const products = await listProducts();
   return products.filter((p) => p.featured).slice(0, 3);
 }
 
 export async function getProductBySlug(_locale: Locale, slug: string) {
-  const products = await getSection("products");
-  return products.find((p) => p.slug === slug) ?? null;
+  return getProductBySlugFromDb(slug);
 }
 
 export async function getInvestmentOpportunities(_locale: Locale) {
@@ -97,6 +91,10 @@ export async function getRelatedProducts(
 ) {
   const products = await getProducts(locale, { categorySlug });
   return products.filter((p) => p.slug !== excludeSlug).slice(0, limit);
+}
+
+export async function getProductCount(_locale: Locale) {
+  return countProducts();
 }
 
 // Re-export types for convenience

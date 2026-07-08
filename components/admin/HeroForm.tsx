@@ -3,12 +3,11 @@
 import { useState } from "react";
 import type { HeroContent } from "@/lib/api/types";
 import {
-  Field,
   LocalizedField,
   PageHeader,
   SaveButton,
-  TextInput,
 } from "./FormControls";
+import { ImageUploadField } from "./ImageUploadField";
 
 export function HeroForm({ initialData }: { initialData: HeroContent }) {
   const [data, setData] = useState(initialData);
@@ -42,15 +41,13 @@ export function HeroForm({ initialData }: { initialData: HeroContent }) {
           onChange={(subtitle) => setData({ ...data, subtitle })}
           multiline
         />
-        <Field label="Background image URL">
-          <TextInput
-            value={data.backgroundImage}
-            dir="ltr"
-            onChange={(backgroundImage) =>
-              setData({ ...data, backgroundImage })
-            }
-          />
-        </Field>
+        <ImageUploadField
+          label="Background image"
+          value={data.backgroundImage}
+          onChange={(backgroundImage) =>
+            setData({ ...data, backgroundImage })
+          }
+        />
         <SaveButton onSave={save} />
       </div>
     </div>
