@@ -49,6 +49,14 @@ export interface Product {
   categorySlug: string;
   featured?: boolean;
   isNew?: boolean;
+  isShared?: boolean;
+  expectedReturn?: number;
+  monthlyInstallment?: number;
+}
+
+export interface BetakPageContent {
+  title: LocalizedString;
+  backgroundImage: string;
 }
 
 export interface InvestmentOpportunity {
@@ -111,6 +119,7 @@ export interface ContentStore {
   settings: SiteSettings;
   stats: SiteStats;
   hero: HeroContent;
+  betakPage: BetakPageContent;
   categories: ProductCategory[];
   products: Product[];
   investments: InvestmentOpportunity[];

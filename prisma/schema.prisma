@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model ContentSection {
+  key       String   @id @db.VarChar(64)
+  data      Json
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("content_sections")
+}

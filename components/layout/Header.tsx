@@ -57,6 +57,12 @@ export async function Header({ locale }: HeaderProps) {
             <Phone className="h-4 w-4 text-secondary" />
             <span dir="ltr">{settings.phone}</span>
           </a>
+          <Link
+            href="/betak-share"
+            className="hidden rounded-full bg-secondary px-4 py-2 text-sm font-bold text-black transition-colors hover:bg-secondary-hover sm:inline-flex"
+          >
+            {t("startInvesting")}
+          </Link>
         </div>
       </div>
     </header>

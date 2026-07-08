@@ -11,7 +11,8 @@
     "blog": "Blog",
     "login": "Register / Login",
     "betak": "Betak",
-    "betakShare": "Betak Share"
+    "betakShare": "Betak Share",
+    "startInvesting": "Start Investing"
   },
   "hero": {
     "cta": "Explore Units"
@@ -87,6 +88,19 @@
     "title": "Our Products",
     "subtitle": "Browse all available real estate units and investment opportunities.",
     "filterByCategory": "Filter by category"
+  },
+  "betakPage": {
+    "unitsAvailable": "units available",
+    "filters": "Filters",
+    "sharedOnly": "Shared only",
+    "details": "Details",
+    "new": "New",
+    "shared": "Shared",
+    "return": "Return",
+    "rooms": "rooms",
+    "bathrooms": "bath",
+    "noResults": "No units match the selected filters.",
+    "whatsapp": "Contact via WhatsApp"
   },
   "common": {
     "currency": "EGP",

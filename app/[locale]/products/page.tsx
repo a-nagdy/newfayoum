@@ -23,7 +23,7 @@ export default async function ProductsPage({
 
   const [categories, products] = await Promise.all([
     getCategories(locale),
-    getProducts(locale, category),
+    getProducts(locale, { categorySlug: category }),
   ]);
 
   return (

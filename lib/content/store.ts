@@ -1,45 +1,85 @@
-import { promises as fs } from "fs";
-import path from "path";
-import { getDefaultContent } from "./default-content";
 import type { ContentKey, ContentStore } from "@/lib/api/types";
+import { prisma } from "@/lib/db/prisma";
+import { getDefaultContent } from "./default-content";
 
-const DATA_DIR = path.join(process.cwd(), "data");
-const DATA_FILE = path.join(DATA_DIR, "content.json");
+const SECTION_KEYS = Object.keys(getDefaultContent()) as ContentKey[];
 
-async function ensureStore(): Promise<ContentStore> {
-  try {
-    const raw = await fs.readFile(DATA_FILE, "utf-8");
-    return JSON.parse(raw) as ContentStore;
-  } catch {
-    const defaults = getDefaultContent();
-    await fs.mkdir(DATA_DIR, { recursive: true });
-    await fs.writeFile(DATA_FILE, JSON.stringify(defaults, null, 2), "utf-8");
-    return defaults;
-  }
+function assignSection<K extends ContentKey>(
+  store: ContentStore,
+  key: K,
+  data: unknown,
+): void {
+  store[key] = data as ContentStore[K];
+}
+
+async function seedAllSections(store: ContentStore) {
+  await prisma.$transaction(
+    SECTION_KEYS.map((key) =>
+      prisma.contentSection.upsert({
+        where: { key },
+        create: { key, data: store[key] as object },
+        update: { data: store[key] as object },
+      }),
+    ),
+  );
+}
+
+async function ensureSeeded() {
+  const count = await prisma.contentSection.count();
+  if (count > 0) return;
+
+  await seedAllSections(getDefaultContent());
 }
 
 export async function readStore(): Promise<ContentStore> {
-  return ensureStore();
-}
+  await ensureSeeded();
 
-export async function writeStore(store: ContentStore): Promise<void> {
-  await fs.mkdir(DATA_DIR, { recursive: true });
-  await fs.writeFile(DATA_FILE, JSON.stringify(store, null, 2), "utf-8");
+  const rows = await prisma.contentSection.findMany();
+  const store = getDefaultContent();
+
+  for (const row of rows) {
+    const key = row.key as ContentKey;
+    if (SECTION_KEYS.includes(key)) {
+      assignSection(store, key, row.data);
+    }
+  }
+
+  return store;
 }
 
 export async function getSection<K extends ContentKey>(
   key: K,
 ): Promise<ContentStore[K]> {
-  const store = await readStore();
-  return store[key];
+  await ensureSeeded();
+
+  const row = await prisma.contentSection.findUnique({ where: { key } });
+  if (row) {
+    return row.data as unknown as ContentStore[K];
+  }
+
+  const fallback = getDefaultContent()[key];
+  await prisma.contentSection.create({
+    data: { key, data: fallback as object },
+  });
+  return fallback;
 }
 
 export async function updateSection<K extends ContentKey>(
   key: K,
   value: ContentStore[K],
 ): Promise<ContentStore[K]> {
-  const store = await readStore();
-  store[key] = value;
-  await writeStore(store);
+  await ensureSeeded();
+
+  await prisma.contentSection.upsert({
+    where: { key },
+    create: { key, data: value as object },
+    update: { data: value as object },
+  });
+
   return value;
+}
+
+/** Import existing JSON file content into MySQL (one-time migration helper). */
+export async function importStore(store: ContentStore): Promise<void> {
+  await seedAllSections(store);
 }

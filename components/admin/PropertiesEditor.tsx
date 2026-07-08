@@ -144,6 +144,37 @@ export function PropertiesEditor({
               checked={Boolean(item.isNew)}
               onChange={(isNew) => onChange({ ...item, isNew })}
             />
+            <CheckboxField
+              label="Shared / Betak Share"
+              checked={Boolean(item.isShared)}
+              onChange={(isShared) => onChange({ ...item, isShared })}
+            />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Expected return (%)">
+              <TextInput
+                type="number"
+                value={String(item.expectedReturn ?? "")}
+                onChange={(v) =>
+                  onChange({
+                    ...item,
+                    expectedReturn: v ? Number(v) : undefined,
+                  })
+                }
+              />
+            </Field>
+            <Field label="Monthly installment (EGP)">
+              <TextInput
+                type="number"
+                value={String(item.monthlyInstallment ?? "")}
+                onChange={(v) =>
+                  onChange({
+                    ...item,
+                    monthlyInstallment: v ? Number(v) : undefined,
+                  })
+                }
+              />
+            </Field>
           </div>
         </>
       )}

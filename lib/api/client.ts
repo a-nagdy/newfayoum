@@ -29,10 +29,29 @@ export async function getCategories(_locale: Locale) {
   return getSection("categories");
 }
 
-export async function getProducts(locale: Locale, categorySlug?: string) {
+export async function getBetakPageContent(_locale: Locale) {
+  return getSection("betakPage");
+}
+
+export async function getProducts(
+  _locale: Locale,
+  options?: {
+    categorySlug?: string;
+    sharedOnly?: boolean;
+  },
+) {
   const products = await getSection("products");
-  if (!categorySlug) return products;
-  return products.filter((p) => p.categorySlug === categorySlug);
+  let filtered = products;
+
+  if (options?.categorySlug) {
+    filtered = filtered.filter((p) => p.categorySlug === options.categorySlug);
+  }
+
+  if (options?.sharedOnly) {
+    filtered = filtered.filter((p) => p.isShared);
+  }
+
+  return filtered;
 }
 
 export async function getFeaturedProducts(_locale: Locale) {
@@ -76,7 +95,7 @@ export async function getRelatedProducts(
   excludeSlug: string,
   limit = 3,
 ) {
-  const products = await getProducts(locale, categorySlug);
+  const products = await getProducts(locale, { categorySlug });
   return products.filter((p) => p.slug !== excludeSlug).slice(0, limit);
 }
 

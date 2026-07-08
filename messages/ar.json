@@ -11,7 +11,8 @@
     "betak": "بيتك",
     "betakShare": "بيتك المشترك",
     "units": "الوحدات",
-    "blogs": "المدونات"
+    "blogs": "المدونات",
+    "startInvesting": "ابدأ الاستثمار"
     
   },
   "hero": {
@@ -88,6 +89,19 @@
     "title": "منتجاتنا",
     "subtitle": "تصفح جميع الوحدات العقارية وفرص الاستثمار المتاحة.",
     "filterByCategory": "تصفية حسب الفئة"
+  },
+  "betakPage": {
+    "unitsAvailable": "وحدة متاحة",
+    "filters": "الفلاتر",
+    "sharedOnly": "مشترك فقط",
+    "details": "التفاصيل",
+    "new": "جديد",
+    "shared": "مشترك",
+    "return": "عائد",
+    "rooms": "غرف",
+    "bathrooms": "حمام",
+    "noResults": "لا توجد وحدات مطابقة للفلاتر المحددة.",
+    "whatsapp": "تواصل عبر واتساب"
   },
   "common": {
     "currency": "ج.م",
