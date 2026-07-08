@@ -1,53 +1,42 @@
 /**
- * Test MySQL connection using DATABASE_URL from environment.
- * Run on Hostinger after setting env vars: npm run db:test
+ * Test Supabase connection.
+ * Run: npm run db:test
  */
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
-
-function maskDatabaseUrl(url: string | undefined) {
-  if (!url) return "(not set)";
-  try {
-    const parsed = new URL(url);
-    return `${parsed.protocol}//${parsed.username}:***@${parsed.hostname}:${parsed.port || "3306"}${parsed.pathname}`;
-  } catch {
-    return "(invalid DATABASE_URL format)";
-  }
-}
+import { getSupabase, throwIfError } from "../lib/supabase/client";
 
 async function main() {
-  const databaseUrl = process.env.DATABASE_URL;
-  console.log("DATABASE_URL:", maskDatabaseUrl(databaseUrl));
+  const url = process.env.SUPABASE_URL;
+  console.log("SUPABASE_URL:", url ?? "(not set)");
 
-  if (!databaseUrl) {
-    console.error("DATABASE_URL is not set.");
+  if (!process.env.SUPABASE_API_KEY) {
+    console.error("SUPABASE_API_KEY is not set.");
     process.exit(1);
   }
 
   try {
-    await prisma.$queryRaw`SELECT 1`;
-    const [categories, products, sections] = await Promise.all([
-      prisma.category.count(),
-      prisma.product.count(),
-      prisma.contentSection.count(),
+    const supabase = getSupabase();
+
+    const [sections, categories, products] = await Promise.all([
+      supabase.from("content_sections").select("*", { count: "exact", head: true }),
+      supabase.from("categories").select("*", { count: "exact", head: true }),
+      supabase.from("products").select("*", { count: "exact", head: true }),
     ]);
+
+    throwIfError(sections.error);
+    throwIfError(categories.error);
+    throwIfError(products.error);
+
     console.log("Connection OK");
-    console.log(`Categories: ${categories}`);
-    console.log(`Products: ${products}`);
-    console.log(`Content sections: ${sections}`);
+    console.log(`Content sections: ${sections.count ?? 0}`);
+    console.log(`Categories: ${categories.count ?? 0}`);
+    console.log(`Products: ${products.count ?? 0}`);
   } catch (error) {
     console.error("Connection failed:");
     console.error(error instanceof Error ? error.message : error);
-    console.error("\nHostinger production should use localhost:");
-    console.error(
-      'DATABASE_URL="mysql://USER:URL_ENCODED_PASSWORD@localhost:3306/DATABASE"',
-    );
-    console.error("Encode = as %3D in the password.");
+    console.error("\n1. Run supabase/schema.sql in Supabase SQL Editor");
+    console.error("2. Set SUPABASE_URL and SUPABASE_API_KEY in env");
     process.exit(1);
   }
 }
 
-main().finally(async () => {
-  await prisma.$disconnect();
-});
+main();

@@ -1,76 +1,81 @@
 import type { ProductCategory } from "@/lib/api/types";
-import { prisma } from "@/lib/db/prisma";
-import { toCategory, toCategoryWriteData } from "@/lib/db/mappers";
+import { toCategory, toCategoryWriteRow } from "@/lib/db/mappers";
 import { getDefaultCategories } from "@/lib/content/default-content";
+import { getSupabase, throwIfError } from "@/lib/supabase/client";
 
 async function seedDefaultCategories() {
   const defaults = getDefaultCategories();
+  const supabase = getSupabase();
 
-  for (const item of defaults) {
-    const data = toCategoryWriteData(item);
-    await prisma.category.upsert({
-      where: { id: item.id },
-      create: data,
-      update: {
-        slug: data.slug,
-        nameAr: data.nameAr,
-        nameEn: data.nameEn,
-      },
-    });
-  }
+  const { error } = await supabase
+    .from("categories")
+    .upsert(defaults.map(toCategoryWriteRow), { onConflict: "id" });
+
+  throwIfError(error);
 }
 
 export async function ensureCategoriesSeeded() {
-  const count = await prisma.category.count();
-  if (count === 0) {
-    await seedDefaultCategories();
-  }
+  const supabase = getSupabase();
+  const { count, error } = await supabase
+    .from("categories")
+    .select("*", { count: "exact", head: true });
+
+  throwIfError(error);
+  if ((count ?? 0) === 0) await seedDefaultCategories();
 }
 
 export async function listCategories(): Promise<ProductCategory[]> {
   await ensureCategoriesSeeded();
+  const supabase = getSupabase();
 
-  const rows = await prisma.category.findMany({
-    orderBy: { nameEn: "asc" },
-  });
+  const { data, error } = await supabase
+    .from("categories")
+    .select("*")
+    .order("name_en", { ascending: true });
 
-  return rows.map(toCategory);
+  throwIfError(error);
+  return (data ?? []).map(toCategory);
 }
 
 export async function syncCategories(
   items: ProductCategory[],
 ): Promise<ProductCategory[]> {
   await ensureCategoriesSeeded();
+  const supabase = getSupabase();
 
-  const existing = await prisma.category.findMany();
+  const { data: existing, error: existingError } = await supabase
+    .from("categories")
+    .select("id");
+
+  throwIfError(existingError);
+
   const incomingIds = new Set(items.map((item) => item.id));
 
-  await prisma.$transaction(async (tx) => {
-    for (const item of items) {
-      const data = toCategoryWriteData(item);
-      await tx.category.upsert({
-        where: { id: item.id },
-        create: data,
-        update: {
-          slug: data.slug,
-          nameAr: data.nameAr,
-          nameEn: data.nameEn,
-        },
-      });
+  const { error: upsertError } = await supabase
+    .from("categories")
+    .upsert(items.map(toCategoryWriteRow), { onConflict: "id" });
+
+  throwIfError(upsertError);
+
+  for (const row of existing ?? []) {
+    if (incomingIds.has(row.id)) continue;
+
+    const { count, error: countError } = await supabase
+      .from("products")
+      .select("*", { count: "exact", head: true })
+      .eq("category_id", row.id);
+
+    throwIfError(countError);
+
+    if ((count ?? 0) === 0) {
+      const { error: deleteError } = await supabase
+        .from("categories")
+        .delete()
+        .eq("id", row.id);
+
+      throwIfError(deleteError);
     }
-
-    for (const row of existing) {
-      if (incomingIds.has(row.id)) continue;
-
-      const productCount = await tx.product.count({
-        where: { categoryId: row.id },
-      });
-
-      if (productCount === 0) {
-        await tx.category.delete({ where: { id: row.id } });
-      }
-    }
-  });
+  }
 
   return listCategories();
 }
@@ -79,11 +84,14 @@ export async function getCategoryIdBySlug(
   slug: string,
 ): Promise<string | null> {
   await ensureCategoriesSeeded();
+  const supabase = getSupabase();
 
-  const row = await prisma.category.findUnique({
-    where: { slug },
-    select: { id: true },
-  });
+  const { data, error } = await supabase
+    .from("categories")
+    .select("id")
+    .eq("slug", slug)
+    .maybeSingle();
 
-  return row?.id ?? null;
+  throwIfError(error);
+  return data?.id ?? null;
 }

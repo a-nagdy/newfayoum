@@ -1,69 +1,102 @@
-import type { Category, Product as DbProduct } from "@prisma/client";
 import type { Product, ProductCategory } from "@/lib/api/types";
 
-type ProductWithCategory = DbProduct & { category: Category };
+export type CategoryRow = {
+  id: string;
+  slug: string;
+  name_ar: string;
+  name_en: string;
+};
 
-export function toCategory(row: Category): ProductCategory {
+export type ProductRow = {
+  id: string;
+  slug: string;
+  title_ar: string;
+  title_en: string;
+  location_ar: string;
+  location_en: string;
+  price: number;
+  currency: string;
+  image: string;
+  bedrooms: number | null;
+  bathrooms: number | null;
+  area: number | null;
+  posted_at: string;
+  badges: Product["badges"] | null;
+  featured: boolean;
+  is_new: boolean;
+  is_shared: boolean;
+  expected_return: number | null;
+  monthly_installment: number | null;
+  category_id: string;
+  categories: { slug: string } | null;
+};
+
+export type ContentSectionRow = {
+  key: string;
+  data: unknown;
+};
+
+export function toCategory(row: CategoryRow): ProductCategory {
   return {
     id: row.id,
     slug: row.slug,
-    name: { ar: row.nameAr, en: row.nameEn },
+    name: { ar: row.name_ar, en: row.name_en },
   };
 }
 
-export function toProduct(row: ProductWithCategory): Product {
+export function toProduct(row: ProductRow): Product {
   return {
     id: row.id,
     slug: row.slug,
-    title: { ar: row.titleAr, en: row.titleEn },
-    location: { ar: row.locationAr, en: row.locationEn },
+    title: { ar: row.title_ar, en: row.title_en },
+    location: { ar: row.location_ar, en: row.location_en },
     price: row.price,
     currency: row.currency,
     image: row.image,
     bedrooms: row.bedrooms ?? undefined,
     bathrooms: row.bathrooms ?? undefined,
     area: row.area ?? undefined,
-    postedAt: row.postedAt.toISOString().slice(0, 10),
-    badges: (row.badges as Product["badges"]) ?? undefined,
-    categorySlug: row.category.slug,
+    postedAt: row.posted_at.slice(0, 10),
+    badges: row.badges ?? undefined,
+    categorySlug: row.categories?.slug ?? "",
     featured: row.featured,
-    isNew: row.isNew,
-    isShared: row.isShared,
-    expectedReturn: row.expectedReturn ?? undefined,
-    monthlyInstallment: row.monthlyInstallment ?? undefined,
+    isNew: row.is_new,
+    isShared: row.is_shared,
+    expectedReturn: row.expected_return ?? undefined,
+    monthlyInstallment: row.monthly_installment ?? undefined,
   };
 }
 
-export function toCategoryWriteData(item: ProductCategory) {
+export function toCategoryWriteRow(item: ProductCategory) {
   return {
     id: item.id,
     slug: item.slug,
-    nameAr: item.name.ar,
-    nameEn: item.name.en,
+    name_ar: item.name.ar,
+    name_en: item.name.en,
   };
 }
 
-export function toProductWriteData(item: Product, categoryId: string) {
+export function toProductWriteRow(item: Product, categoryId: string) {
   return {
     id: item.id,
     slug: item.slug,
-    titleAr: item.title.ar,
-    titleEn: item.title.en,
-    locationAr: item.location.ar,
-    locationEn: item.location.en,
+    title_ar: item.title.ar,
+    title_en: item.title.en,
+    location_ar: item.location.ar,
+    location_en: item.location.en,
     price: item.price,
     currency: item.currency,
     image: item.image,
     bedrooms: item.bedrooms ?? null,
     bathrooms: item.bathrooms ?? null,
     area: item.area ?? null,
-    postedAt: new Date(item.postedAt),
-    badges: item.badges ?? undefined,
+    posted_at: item.postedAt,
+    badges: item.badges ?? null,
     featured: Boolean(item.featured),
-    isNew: Boolean(item.isNew),
-    isShared: Boolean(item.isShared),
-    expectedReturn: item.expectedReturn ?? null,
-    monthlyInstallment: item.monthlyInstallment ?? null,
-    categoryId,
+    is_new: Boolean(item.isNew),
+    is_shared: Boolean(item.isShared),
+    expected_return: item.expectedReturn ?? null,
+    monthly_installment: item.monthlyInstallment ?? null,
+    category_id: categoryId,
   };
 }

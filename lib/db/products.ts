@@ -1,36 +1,40 @@
 import type { Product } from "@/lib/api/types";
 import { ensureCategoriesSeeded, getCategoryIdBySlug } from "@/lib/db/categories";
-import { prisma } from "@/lib/db/prisma";
-import { toProduct, toProductWriteData } from "@/lib/db/mappers";
+import { toProduct, toProductWriteRow, type ProductRow } from "@/lib/db/mappers";
 import { getDefaultProducts } from "@/lib/content/default-content";
+import { getSupabase, throwIfError } from "@/lib/supabase/client";
 
-const productInclude = { category: true } as const;
+const productSelect = "*, categories(slug)";
 
 async function seedDefaultProducts() {
   await ensureCategoriesSeeded();
-
   const defaults = getDefaultProducts();
+  const supabase = getSupabase();
 
+  const rows = [];
   for (const item of defaults) {
     const categoryId = await getCategoryIdBySlug(item.categorySlug);
     if (!categoryId) {
       throw new Error(`Missing category for product seed: ${item.categorySlug}`);
     }
-
-    const data = toProductWriteData(item, categoryId);
-    await prisma.product.upsert({
-      where: { id: item.id },
-      create: data,
-      update: data,
-    });
+    rows.push(toProductWriteRow(item, categoryId));
   }
+
+  const { error } = await supabase.from("products").upsert(rows, {
+    onConflict: "id",
+  });
+
+  throwIfError(error);
 }
 
 export async function ensureProductsSeeded() {
-  const count = await prisma.product.count();
-  if (count === 0) {
-    await seedDefaultProducts();
-  }
+  const supabase = getSupabase();
+  const { count, error } = await supabase
+    .from("products")
+    .select("*", { count: "exact", head: true });
+
+  throwIfError(error);
+  if ((count ?? 0) === 0) await seedDefaultProducts();
 }
 
 export async function listProducts(options?: {
@@ -38,64 +42,91 @@ export async function listProducts(options?: {
   sharedOnly?: boolean;
 }): Promise<Product[]> {
   await ensureProductsSeeded();
+  const supabase = getSupabase();
 
-  const rows = await prisma.product.findMany({
-    include: productInclude,
-    orderBy: { postedAt: "desc" },
-    where: {
-      ...(options?.categorySlug
-        ? { category: { slug: options.categorySlug } }
-        : {}),
-      ...(options?.sharedOnly ? { isShared: true } : {}),
-    },
-  });
+  let categoryId: string | null = null;
+  if (options?.categorySlug) {
+    categoryId = await getCategoryIdBySlug(options.categorySlug);
+    if (!categoryId) return [];
+  }
 
-  return rows.map(toProduct);
+  let query = supabase
+    .from("products")
+    .select(productSelect)
+    .order("posted_at", { ascending: false });
+
+  if (categoryId) query = query.eq("category_id", categoryId);
+  if (options?.sharedOnly) query = query.eq("is_shared", true);
+
+  const { data, error } = await query;
+  throwIfError(error);
+
+  return (data as ProductRow[] | null)?.map(toProduct) ?? [];
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   await ensureProductsSeeded();
+  const supabase = getSupabase();
 
-  const row = await prisma.product.findUnique({
-    where: { slug },
-    include: productInclude,
-  });
+  const { data, error } = await supabase
+    .from("products")
+    .select(productSelect)
+    .eq("slug", slug)
+    .maybeSingle();
 
-  return row ? toProduct(row) : null;
+  throwIfError(error);
+  return data ? toProduct(data as ProductRow) : null;
 }
 
 export async function syncProducts(items: Product[]): Promise<Product[]> {
   await ensureProductsSeeded();
+  const supabase = getSupabase();
 
-  const existing = await prisma.product.findMany({ select: { id: true } });
+  const { data: existing, error: existingError } = await supabase
+    .from("products")
+    .select("id");
+
+  throwIfError(existingError);
+
   const incomingIds = new Set(items.map((item) => item.id));
+  const rows = [];
 
-  await prisma.$transaction(async (tx) => {
-    for (const item of items) {
-      const categoryId = await getCategoryIdBySlug(item.categorySlug);
-      if (!categoryId) {
-        throw new Error(`Unknown category slug: ${item.categorySlug}`);
-      }
-
-      const data = toProductWriteData(item, categoryId);
-      await tx.product.upsert({
-        where: { id: item.id },
-        create: data,
-        update: data,
-      });
+  for (const item of items) {
+    const categoryId = await getCategoryIdBySlug(item.categorySlug);
+    if (!categoryId) {
+      throw new Error(`Unknown category slug: ${item.categorySlug}`);
     }
+    rows.push(toProductWriteRow(item, categoryId));
+  }
 
-    for (const row of existing) {
-      if (!incomingIds.has(row.id)) {
-        await tx.product.delete({ where: { id: row.id } });
-      }
-    }
-  });
+  const { error: upsertError } = await supabase
+    .from("products")
+    .upsert(rows, { onConflict: "id" });
+
+  throwIfError(upsertError);
+
+  for (const row of existing ?? []) {
+    if (incomingIds.has(row.id)) continue;
+
+    const { error: deleteError } = await supabase
+      .from("products")
+      .delete()
+      .eq("id", row.id);
+
+    throwIfError(deleteError);
+  }
 
   return listProducts();
 }
 
 export async function countProducts(): Promise<number> {
   await ensureProductsSeeded();
-  return prisma.product.count();
+  const supabase = getSupabase();
+
+  const { count, error } = await supabase
+    .from("products")
+    .select("*", { count: "exact", head: true });
+
+  throwIfError(error);
+  return count ?? 0;
 }

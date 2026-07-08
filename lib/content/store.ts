@@ -1,8 +1,8 @@
 import type { ContentStore, SectionKey } from "@/lib/api/types";
 import { listCategories } from "@/lib/db/categories";
 import { listProducts } from "@/lib/db/products";
-import { prisma } from "@/lib/db/prisma";
 import { getDefaultContent } from "./default-content";
+import { getSupabase, throwIfError } from "@/lib/supabase/client";
 
 const SECTION_KEYS: SectionKey[] = [
   "settings",
@@ -29,31 +29,41 @@ function assignSection<K extends SectionKey>(
 }
 
 async function seedAllSections(store: ContentStore) {
-  await prisma.$transaction(
-    SECTION_KEYS.map((key) =>
-      prisma.contentSection.upsert({
-        where: { key },
-        create: { key, data: store[key] as object },
-        update: { data: store[key] as object },
-      }),
-    ),
-  );
+  const supabase = getSupabase();
+  const rows = SECTION_KEYS.map((key) => ({
+    key,
+    data: store[key],
+  }));
+
+  const { error } = await supabase
+    .from("content_sections")
+    .upsert(rows, { onConflict: "key" });
+
+  throwIfError(error);
 }
 
 async function ensureSeeded() {
-  const count = await prisma.contentSection.count();
-  if (count > 0) return;
+  const supabase = getSupabase();
+  const { count, error } = await supabase
+    .from("content_sections")
+    .select("*", { count: "exact", head: true });
+
+  throwIfError(error);
+  if ((count ?? 0) > 0) return;
 
   await seedAllSections(getDefaultContent());
 }
 
 export async function readStore(): Promise<ContentStore> {
   await ensureSeeded();
+  const supabase = getSupabase();
 
-  const rows = await prisma.contentSection.findMany();
+  const { data: rows, error } = await supabase.from("content_sections").select("*");
+  throwIfError(error);
+
   const store = getDefaultContent();
 
-  for (const row of rows) {
+  for (const row of rows ?? []) {
     if (isSectionKey(row.key)) {
       assignSection(store, row.key, row.data);
     }
@@ -71,16 +81,26 @@ export async function getSection<K extends SectionKey>(
   key: K,
 ): Promise<ContentStore[K]> {
   await ensureSeeded();
+  const supabase = getSupabase();
 
-  const row = await prisma.contentSection.findUnique({ where: { key } });
-  if (row) {
-    return row.data as unknown as ContentStore[K];
+  const { data, error } = await supabase
+    .from("content_sections")
+    .select("data")
+    .eq("key", key)
+    .maybeSingle();
+
+  throwIfError(error);
+
+  if (data) {
+    return data.data as ContentStore[K];
   }
 
   const fallback = getDefaultContent()[key];
-  await prisma.contentSection.create({
-    data: { key, data: fallback as object },
-  });
+  const { error: insertError } = await supabase
+    .from("content_sections")
+    .insert({ key, data: fallback });
+
+  throwIfError(insertError);
   return fallback;
 }
 
@@ -89,17 +109,16 @@ export async function updateSection<K extends SectionKey>(
   value: ContentStore[K],
 ): Promise<ContentStore[K]> {
   await ensureSeeded();
+  const supabase = getSupabase();
 
-  await prisma.contentSection.upsert({
-    where: { key },
-    create: { key, data: value as object },
-    update: { data: value as object },
-  });
+  const { error } = await supabase
+    .from("content_sections")
+    .upsert({ key, data: value }, { onConflict: "key" });
 
+  throwIfError(error);
   return value;
 }
 
-/** Import existing JSON file content into MySQL (one-time migration helper). */
 export async function importStore(store: ContentStore): Promise<void> {
   await seedAllSections(store);
 }

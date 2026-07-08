@@ -1,13 +1,20 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/db/prisma";
+import { getSupabase, throwIfError } from "@/lib/supabase/client";
 
 export async function GET() {
   try {
-    await prisma.$queryRaw`SELECT 1`;
+    const supabase = getSupabase();
+    const { error } = await supabase
+      .from("content_sections")
+      .select("key")
+      .limit(1);
+
+    throwIfError(error);
+
     return NextResponse.json({
       ok: true,
       db: true,
-      port: process.env.PORT ?? "3000",
+      provider: "supabase",
     });
   } catch (error) {
     const message =
@@ -17,6 +24,7 @@ export async function GET() {
       {
         ok: false,
         db: false,
+        provider: "supabase",
         error: message,
       },
       { status: 503 },
