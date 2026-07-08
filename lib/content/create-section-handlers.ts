@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import type { ContentKey } from "@/lib/api/types";
+import type { SectionKey } from "@/lib/api/types";
 import { getSection, updateSection } from "./store";
 import { errorResponse, jsonResponse } from "./api-utils";
 
-export function createSectionHandlers<K extends ContentKey>(key: K) {
+export function createSectionHandlers<K extends SectionKey>(key: K) {
   return {
     async GET() {
       const data = await getSection(key);

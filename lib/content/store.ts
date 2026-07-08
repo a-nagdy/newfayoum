@@ -1,14 +1,26 @@
-import type { ContentKey, ContentStore } from "@/lib/api/types";
+import type { ContentStore, SectionKey } from "@/lib/api/types";
 import { listCategories } from "@/lib/db/categories";
 import { listProducts } from "@/lib/db/products";
 import { prisma } from "@/lib/db/prisma";
 import { getDefaultContent } from "./default-content";
 
-const SECTION_KEYS = (Object.keys(getDefaultContent()) as ContentKey[]).filter(
-  (key) => key !== "categories" && key !== "products",
-);
+const SECTION_KEYS: SectionKey[] = [
+  "settings",
+  "stats",
+  "hero",
+  "betakPage",
+  "investments",
+  "features",
+  "testimonials",
+  "blog",
+  "promo",
+];
 
-function assignSection<K extends ContentKey>(
+function isSectionKey(key: string): key is SectionKey {
+  return (SECTION_KEYS as string[]).includes(key);
+}
+
+function assignSection<K extends SectionKey>(
   store: ContentStore,
   key: K,
   data: unknown,
@@ -42,9 +54,8 @@ export async function readStore(): Promise<ContentStore> {
   const store = getDefaultContent();
 
   for (const row of rows) {
-    const key = row.key as ContentKey;
-    if (SECTION_KEYS.includes(key)) {
-      assignSection(store, key, row.data);
+    if (isSectionKey(row.key)) {
+      assignSection(store, row.key, row.data);
     }
   }
 
@@ -56,7 +67,7 @@ export async function readStore(): Promise<ContentStore> {
   return { ...store, categories, products };
 }
 
-export async function getSection<K extends ContentKey>(
+export async function getSection<K extends SectionKey>(
   key: K,
 ): Promise<ContentStore[K]> {
   await ensureSeeded();
@@ -73,7 +84,7 @@ export async function getSection<K extends ContentKey>(
   return fallback;
 }
 
-export async function updateSection<K extends ContentKey>(
+export async function updateSection<K extends SectionKey>(
   key: K,
   value: ContentStore[K],
 ): Promise<ContentStore[K]> {

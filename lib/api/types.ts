@@ -131,6 +131,9 @@ export interface ContentStore {
 
 export type ContentKey = keyof ContentStore;
 
+/** JSON-backed CMS sections (excludes relational products/categories). */
+export type SectionKey = Exclude<ContentKey, "categories" | "products">;
+
 export function pickLocalized<T extends LocalizedString>(
   value: T,
   locale: Locale,

@@ -1,14 +1,22 @@
 import { PrismaClient } from "@prisma/client";
 import { getDefaultContent } from "../lib/content/default-content";
-import type { ContentKey } from "../lib/api/types";
+import type { SectionKey } from "../lib/api/types";
 import { syncCategories } from "../lib/db/categories";
 import { syncProducts } from "../lib/db/products";
 
 const prisma = new PrismaClient();
 
-const SECTION_KEYS = (Object.keys(getDefaultContent()) as ContentKey[]).filter(
-  (key) => key !== "categories" && key !== "products",
-);
+const SECTION_KEYS: SectionKey[] = [
+  "settings",
+  "stats",
+  "hero",
+  "betakPage",
+  "investments",
+  "features",
+  "testimonials",
+  "blog",
+  "promo",
+];
 
 async function main() {
   const store = getDefaultContent();
