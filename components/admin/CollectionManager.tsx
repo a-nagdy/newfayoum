@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Pencil, Plus, Trash2 } from "lucide-react";
+import { putApi } from "@/lib/admin/api-client";
 import { PageHeader, SaveButton } from "./FormControls";
 
 interface CollectionManagerProps<T extends { id: string }> {
@@ -11,6 +12,7 @@ interface CollectionManagerProps<T extends { id: string }> {
   initialItems: T[];
   getItemLabel: (item: T) => string;
   createItem: () => T;
+  validate?: (items: T[]) => string | null;
   renderForm: (
     item: T,
     onChange: (item: T) => void,
@@ -24,6 +26,7 @@ export function CollectionManager<T extends { id: string }>({
   initialItems,
   getItemLabel,
   createItem,
+  validate,
   renderForm,
 }: CollectionManagerProps<T>) {
   const [items, setItems] = useState(initialItems);
@@ -56,12 +59,12 @@ export function CollectionManager<T extends { id: string }>({
   }
 
   async function save() {
-    const res = await fetch(apiPath, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(items),
-    });
-    if (!res.ok) throw new Error("Save failed");
+    if (validate) {
+      const error = validate(items);
+      if (error) throw new Error(error);
+    }
+
+    await putApi(apiPath, items);
   }
 
   return (

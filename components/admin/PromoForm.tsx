@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { PromoBanner } from "@/lib/api/types";
+import { putApi } from "@/lib/admin/api-client";
 import {
   Field,
   LocalizedField,
@@ -15,12 +16,7 @@ export function PromoForm({ initialData }: { initialData: PromoBanner }) {
   const [data, setData] = useState(initialData);
 
   async function save() {
-    const res = await fetch("/api/promo", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (!res.ok) throw new Error("Save failed");
+    await putApi("/api/promo", data);
   }
 
   return (

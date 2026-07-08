@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { SiteSettings } from "@/lib/api/types";
+import { putApi } from "@/lib/admin/api-client";
 import {
   Field,
   LocalizedField,
@@ -14,12 +15,7 @@ export function SettingsForm({ initialData }: { initialData: SiteSettings }) {
   const [data, setData] = useState(initialData);
 
   async function save() {
-    const res = await fetch("/api/settings", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (!res.ok) throw new Error("Save failed");
+    await putApi("/api/settings", data);
   }
 
   return (

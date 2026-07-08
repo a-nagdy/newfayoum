@@ -2,6 +2,7 @@
 
 import type { Product, ProductCategory } from "@/lib/api/types";
 import { newId, slugify, todayISO } from "@/lib/admin/utils";
+import { validateProducts } from "@/lib/admin/validation";
 import { CollectionManager } from "./CollectionManager";
 import {
   CheckboxField,
@@ -30,6 +31,10 @@ export function PropertiesEditor({
       description="Real estate listings shown on the homepage and products pages."
       apiPath="/api/products"
       initialItems={initialData}
+      validate={(items) => {
+        const result = validateProducts(items);
+        return result.ok ? null : result.message;
+      }}
       getItemLabel={(item) => item.title.en || item.title.ar || item.slug}
       createItem={() => ({
         id: newId(),

@@ -1,5 +1,6 @@
 "use client";
 
+import { AdminToastProvider } from "./AdminToast";
 import {
   BarChart3,
   BookOpen,
@@ -95,11 +96,13 @@ export function Sidebar() {
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="admin-theme flex min-h-screen bg-black text-white">
-      <Sidebar />
-      <main className="flex-1 overflow-auto p-6 lg:p-8 bg-primary">
-        {children}
-      </main>
-    </div>
+    <AdminToastProvider>
+      <div className="admin-theme flex min-h-screen bg-black text-white">
+        <Sidebar />
+        <main className="flex-1 overflow-auto bg-primary p-6 lg:p-8">
+          {children}
+        </main>
+      </div>
+    </AdminToastProvider>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Check, Loader2 } from "lucide-react";
+import { useAdminToast } from "./AdminToast";
 
 const inputClass =
   "w-full rounded-lg border border-white/10 bg-[#111827] px-3 py-2 text-sm text-white outline-none focus:border-[#c8a85a]";
@@ -101,21 +102,27 @@ export function LocalizedField({
 export function SaveButton({
   onSave,
   label = "Save changes",
+  successMessage = "Changes saved successfully",
 }: {
   onSave: () => Promise<void>;
   label?: string;
+  successMessage?: string;
 }) {
   const [status, setStatus] = useState<"idle" | "loading" | "saved">("idle");
+  const { showSuccess, showError } = useAdminToast();
 
   async function handleClick() {
     setStatus("loading");
     try {
       await onSave();
       setStatus("saved");
+      showSuccess(successMessage);
       setTimeout(() => setStatus("idle"), 2000);
-    } catch {
+    } catch (error) {
       setStatus("idle");
-      alert("Failed to save. Check the console for details.");
+      const message =
+        error instanceof Error ? error.message : "Failed to save changes";
+      showError(message);
     }
   }
 

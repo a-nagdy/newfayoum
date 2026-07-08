@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { HeroContent } from "@/lib/api/types";
+import { putApi } from "@/lib/admin/api-client";
 import {
   LocalizedField,
   PageHeader,
@@ -13,12 +14,7 @@ export function HeroForm({ initialData }: { initialData: HeroContent }) {
   const [data, setData] = useState(initialData);
 
   async function save() {
-    const res = await fetch("/api/hero", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (!res.ok) throw new Error("Save failed");
+    await putApi("/api/hero", data);
   }
 
   return (

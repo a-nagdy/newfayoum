@@ -2,18 +2,14 @@
 
 import { useState } from "react";
 import type { SiteStats } from "@/lib/api/types";
+import { putApi } from "@/lib/admin/api-client";
 import { Field, PageHeader, SaveButton, TextInput } from "./FormControls";
 
 export function StatsForm({ initialData }: { initialData: SiteStats }) {
   const [data, setData] = useState(initialData);
 
   async function save() {
-    const res = await fetch("/api/stats", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (!res.ok) throw new Error("Save failed");
+    await putApi("/api/stats", data);
   }
 
   return (
