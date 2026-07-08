@@ -18,7 +18,7 @@ async function main() {
   ]);
 
   if (categoriesRow?.data) {
-    const categories = categoriesRow.data as ProductCategory[];
+    const categories = categoriesRow.data as unknown as ProductCategory[];
     await syncCategories(categories);
     console.log(`Migrated ${categories.length} categories.`);
   } else {
@@ -26,7 +26,7 @@ async function main() {
   }
 
   if (productsRow?.data) {
-    const products = productsRow.data as Product[];
+    const products = productsRow.data as unknown as Product[];
     await syncProducts(products);
     console.log(`Migrated ${products.length} products.`);
   } else {

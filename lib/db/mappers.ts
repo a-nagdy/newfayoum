@@ -58,7 +58,7 @@ export function toProductWriteData(item: Product, categoryId: string) {
     bathrooms: item.bathrooms ?? null,
     area: item.area ?? null,
     postedAt: new Date(item.postedAt),
-    badges: item.badges ?? null,
+    badges: item.badges ?? undefined,
     featured: Boolean(item.featured),
     isNew: Boolean(item.isNew),
     isShared: Boolean(item.isShared),
