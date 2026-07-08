@@ -82,9 +82,13 @@ export async function isAuthenticated(): Promise<boolean> {
 }
 
 export function getSessionCookieOptions() {
+  const secureInProduction =
+    process.env.NODE_ENV === "production" &&
+    process.env.COOKIE_SECURE !== "false";
+
   return {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: secureInProduction,
     sameSite: "lax" as const,
     path: "/",
     maxAge: SESSION_MAX_AGE,

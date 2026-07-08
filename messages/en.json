@@ -6,8 +6,12 @@
     "projects": "Projects",
     "contact": "Contact Us",
     "products": "Products",
+    "units": "Units",
+    "blogs": "Blogs",
     "blog": "Blog",
-    "login": "Register / Login"
+    "login": "Register / Login",
+    "betak": "Betak",
+    "betakShare": "Betak Share"
   },
   "hero": {
     "cta": "Explore Units"

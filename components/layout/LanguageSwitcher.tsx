@@ -1,8 +1,8 @@
 "use client";
 
-import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
+import { useLocale } from "next-intl";
 
 export function LanguageSwitcher() {
   const locale = useLocale() as Locale;
@@ -14,7 +14,7 @@ export function LanguageSwitcher() {
   };
 
   return (
-    <div className="flex items-center rounded-lg border border-border p-0.5 text-xs font-semibold">
+    <div className="flex items-center rounded-lg border border-border p-0.5 text-xs font-semibold bg-white">
       <button
         type="button"
         onClick={() => switchLocale("ar")}

@@ -25,7 +25,10 @@ export default function AdminLoginPage() {
       });
 
       if (!res.ok) {
-        setError("Invalid username or password");
+        const data = (await res.json().catch(() => null)) as {
+          error?: string;
+        } | null;
+        setError(data?.error ?? "Invalid username or password");
         return;
       }
 

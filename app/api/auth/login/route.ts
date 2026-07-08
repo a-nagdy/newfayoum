@@ -21,11 +21,26 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
   }
 
-  const response = NextResponse.json({ ok: true });
-  response.cookies.set(
-    SESSION_COOKIE,
-    await createSessionValue(),
-    getSessionCookieOptions(),
-  );
-  return response;
+  try {
+    const response = NextResponse.json({ ok: true });
+    response.cookies.set(
+      SESSION_COOKIE,
+      await createSessionValue(),
+      getSessionCookieOptions(),
+    );
+    return response;
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Failed to create session";
+    console.error("[auth/login]", message);
+    return NextResponse.json(
+      {
+        error:
+          message.includes("AUTH_SECRET")
+            ? "Server misconfigured: AUTH_SECRET is missing"
+            : "Login failed on server",
+      },
+      { status: 500 },
+    );
+  }
 }

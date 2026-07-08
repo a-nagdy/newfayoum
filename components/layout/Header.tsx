@@ -3,6 +3,7 @@ import type { Locale } from "@/i18n/routing";
 import { getSiteSettings } from "@/lib/api/client";
 import { Phone } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import Image from "next/image";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 interface HeaderProps {
@@ -23,13 +24,16 @@ export async function Header({ locale }: HeaderProps) {
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-primary text-white  shadow-sm backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border bg-primary text-white shadow-sm backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 lg:px-6">
-        <Link
-          href="/"
-          className="text-2xl font-black tracking-wider text-secondary"
-        >
-          {settings.logoText}
+        <Link href="/" className="shrink-0">
+          <Image
+            src="/assets/LogoBetakSvg.svg"
+            alt={settings.logoText}
+            width={63}
+            height={60}
+            priority
+          />
         </Link>
 
         <nav className="hidden items-center gap-6 lg:flex">
@@ -48,17 +52,11 @@ export async function Header({ locale }: HeaderProps) {
           <LanguageSwitcher />
           <a
             href={`tel:${settings.phone.replace(/\s/g, "")}`}
-            className="hidden items-center gap-2 text-sm font-medium text-primary/80 sm:inline-flex"
+            className="hidden items-center gap-2 text-sm font-medium text-white/90 sm:inline-flex"
           >
             <Phone className="h-4 w-4 text-secondary" />
             <span dir="ltr">{settings.phone}</span>
           </a>
-          <Link
-            href="#"
-            className="rounded-lg bg-secondary px-4 py-2 text-sm font-bold text-black transition-colors hover:bg-secondary-hover"
-          >
-            {t("login")}
-          </Link>
         </div>
       </div>
     </header>
