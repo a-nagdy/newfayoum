@@ -1,10 +1,10 @@
+import { Footer } from "@/components/layout/Footer";
+import { Header } from "@/components/layout/Header";
+import { routing } from "@/i18n/routing";
+import { getLocaleParam } from "@/lib/i18n/get-locale-param";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
-import { getLocaleParam } from "@/lib/i18n/get-locale-param";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

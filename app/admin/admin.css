@@ -12,3 +12,7 @@
 .admin-theme select {
   color-scheme: dark;
 }
+
+main {
+  background-color: var(--admin-footer);
+}

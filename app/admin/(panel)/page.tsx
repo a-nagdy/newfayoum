@@ -1,12 +1,7 @@
-import Link from "next/link";
-import {
-  BarChart3,
-  BookOpen,
-  Package,
-  TrendingUp,
-} from "lucide-react";
-import { readStore } from "@/lib/content/store";
 import { PageHeader } from "@/components/admin/FormControls";
+import { readStore } from "@/lib/content/store";
+import { BarChart3, BookOpen, Package, TrendingUp } from "lucide-react";
+import Link from "next/link";
 
 export default async function AdminHomePage() {
   const store = await readStore();
