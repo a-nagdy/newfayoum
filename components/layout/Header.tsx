@@ -3,7 +3,9 @@ import type { Locale } from "@/i18n/routing";
 import { getSiteSettings } from "@/lib/api/client";
 import { Phone } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import Image from "next/image";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { MobileNav } from "./MobileNav";
 
 interface HeaderProps {
   locale: Locale;
@@ -24,14 +26,14 @@ export async function Header({ locale }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-primary text-white shadow-sm backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 lg:px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:py-4 lg:px-6">
         <Link href="/" className="shrink-0">
-          <img
+          <Image
             src="/assets/LogoBetakSvg.svg"
             alt={settings.logoText}
             width={63}
             height={60}
-            className="h-[60px] w-auto"
+            className="h-12 w-auto object-contain sm:h-[60px]"
           />
         </Link>
 
@@ -47,21 +49,25 @@ export async function Header({ locale }: HeaderProps) {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <LanguageSwitcher />
           <a
             href={`tel:${settings.phone.replace(/\s/g, "")}`}
-            className="hidden items-center gap-2 text-sm font-medium text-white/90 sm:inline-flex"
+            className="hidden items-center gap-2 text-sm font-medium text-white/90 lg:inline-flex"
           >
             <Phone className="h-4 w-4 text-secondary" />
             <span dir="ltr">{settings.phone}</span>
           </a>
           <Link
             href="/betak-share"
-            className="hidden rounded-full bg-secondary px-4 py-2 text-sm font-bold text-black transition-colors hover:bg-secondary-hover sm:inline-flex"
+            className="hidden rounded-full bg-secondary px-4 py-2 text-sm font-bold text-black transition-colors hover:bg-secondary-hover md:inline-flex"
           >
             {t("startInvesting")}
           </Link>
+          <MobileNav
+            links={links}
+            startInvestingLabel={t("startInvesting")}
+          />
         </div>
       </div>
     </header>

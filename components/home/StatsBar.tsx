@@ -41,15 +41,18 @@ export async function StatsBar({ locale, labels }: StatsBarProps) {
 
   return (
     <section className="border-y border-border bg-primary py-8 text-white">
-      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 lg:grid-cols-4 lg:px-6">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:px-6">
         {items.map(({ icon: Icon, value, label }) => (
-          <div key={label} className="flex items-center gap-4">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-secondary/15 text-secondary">
-              <Icon className="h-6 w-6" />
+          <div
+            key={label}
+            className="flex items-center gap-3 sm:gap-4"
+          >
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-secondary/15 text-secondary sm:h-12 sm:w-12">
+              <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
-            <div>
-              <p className="text-2xl font-bold">{value}</p>
-              <p className="text-sm text-white/75">{label}</p>
+            <div className="min-w-0">
+              <p className="text-xl font-bold sm:text-2xl">{value}</p>
+              <p className="text-xs text-white/75 sm:text-sm">{label}</p>
             </div>
           </div>
         ))}

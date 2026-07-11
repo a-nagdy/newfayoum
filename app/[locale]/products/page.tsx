@@ -30,7 +30,7 @@ export default async function ProductsPage({
     <div className="bg-muted py-16">
       <div className="mx-auto max-w-7xl px-4 lg:px-6">
         <div className="mb-10">
-          <h1 className="mb-3 text-3xl font-bold text-foreground">
+          <h1 className="mb-3 text-2xl font-bold text-foreground sm:text-3xl">
             {t("productsPage.title")}
           </h1>
           <p className="max-w-2xl text-muted-foreground">

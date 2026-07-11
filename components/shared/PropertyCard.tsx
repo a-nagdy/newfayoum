@@ -82,14 +82,14 @@ export function PropertyCard({
           )}
         </div>
 
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
           <Link
             href={`/products/${product.slug}`}
-            className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-light"
+            className="rounded-lg bg-primary px-4 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-primary-light"
           >
             {detailsLabel}
           </Link>
-          <p className="text-lg font-bold text-secondary">
+          <p className="text-end text-base font-bold text-secondary sm:text-lg">
             {formatPrice(product.price, locale, product.currency)}
           </p>
         </div>

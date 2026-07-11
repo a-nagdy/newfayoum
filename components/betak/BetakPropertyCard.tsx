@@ -100,15 +100,15 @@ export function BetakPropertyCard({
           )}
         </div>
 
-        <div className="mt-5 flex items-end justify-between gap-3">
+        <div className="mt-5 flex flex-col items-stretch gap-3 sm:flex-row sm:items-end sm:justify-between">
           <Link
             href={`/products/${product.slug}`}
-            className="rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-primary-light"
+            className="rounded-xl bg-primary px-5 py-2.5 text-center text-sm font-bold text-white transition-colors hover:bg-primary-light"
           >
             {detailsLabel}
           </Link>
           <div className="text-end">
-            <p className="text-lg font-black text-primary">
+            <p className="text-base font-black text-primary sm:text-lg">
               {formatBetakPrice(product.price, locale)}
             </p>
             {product.monthlyInstallment != null && (

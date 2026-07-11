@@ -28,7 +28,7 @@ export async function BetakHero({
       />
       <div className="absolute inset-0 bg-primary/75" />
       <div className="relative z-10 px-4 py-16 text-center text-white">
-        <h1 className="text-4xl font-black md:text-5xl">
+        <h1 className="text-2xl font-black sm:text-3xl md:text-4xl lg:text-5xl">
           {pickLocalized(betak.title, locale)}
         </h1>
         <p className="mt-3 text-lg text-white/90 md:text-xl">

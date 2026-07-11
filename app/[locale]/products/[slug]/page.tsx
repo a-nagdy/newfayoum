@@ -51,7 +51,7 @@ export default async function ProductDetailPage({
           </div>
 
           <div>
-            <h1 className="mb-3 text-3xl font-bold text-foreground">{title}</h1>
+            <h1 className="mb-3 text-2xl font-bold text-foreground sm:text-3xl">{title}</h1>
             <p className="mb-2 inline-flex items-center gap-2 text-muted-foreground">
               <MapPin className="h-4 w-4 text-secondary" />
               {location}
@@ -60,7 +60,7 @@ export default async function ProductDetailPage({
               {t("product.postedAt")}: {formatDate(product.postedAt, locale)}
             </p>
 
-            <p className="mb-6 text-3xl font-bold text-secondary">
+            <p className="mb-6 text-2xl font-bold text-secondary sm:text-3xl">
               {formatPrice(product.price, locale, product.currency)}
             </p>
 

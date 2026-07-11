@@ -37,7 +37,7 @@ export function NewFayoumSection({
     <section className="bg-white py-16">
       <div className="mx-auto max-w-7xl px-4 lg:px-6">
         <div className="mb-8 text-center">
-          <h2 className="mb-3 text-3xl font-bold text-primary">{title}</h2>
+          <h2 className="mb-3 text-2xl font-bold text-primary sm:text-3xl">{title}</h2>
           <p className="mx-auto max-w-2xl text-muted-foreground">
             {description}
           </p>
@@ -72,7 +72,7 @@ export function NewFayoumSection({
         </div>
 
         <div className="relative mb-10 overflow-hidden rounded-2xl border border-border">
-          <div className="relative aspect-[21/9] min-h-[220px]">
+          <div className="relative aspect-[16/9] min-h-[200px] sm:aspect-[21/9] sm:min-h-[220px]">
             <Image
               src={promo.image}
               alt={pickLocalized(promo.title, locale)}
@@ -82,7 +82,7 @@ export function NewFayoumSection({
             />
             <div className="absolute inset-0 bg-primary/60" />
             <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center text-white">
-              <h3 className="mb-2 text-2xl font-bold md:text-3xl">
+              <h3 className="mb-2 text-xl font-bold sm:text-2xl md:text-3xl">
                 {pickLocalized(promo.title, locale)}
               </h3>
               <p className="mb-5 max-w-xl text-sm text-white/85 md:text-base">

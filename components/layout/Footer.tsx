@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { getSiteSettings } from "@/lib/api/client";
 import { pickLocalized } from "@/lib/api/types";
 import type { Locale } from "@/i18n/routing";
+import Image from "next/image";
 
 interface FooterProps {
   locale: Locale;
@@ -24,11 +25,15 @@ export async function Footer({ locale }: FooterProps) {
 
   return (
     <footer id="contact" className="bg-footer text-white">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 lg:grid-cols-3 lg:px-6">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-3 lg:px-6">
         <div>
-          <p className="mb-4 text-2xl font-black text-secondary">
-            {settings.logoText}
-          </p>
+        <Image
+            src="/assets/LogoBetakSvg.svg"
+            alt={settings.logoText}
+            width={63}
+            height={60}
+            className="object-contain"
+          />
           <p className="mb-6 max-w-sm text-sm leading-7 text-white/75">
             {pickLocalized(settings.footerDescription, locale)}
           </p>

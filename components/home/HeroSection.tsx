@@ -13,7 +13,7 @@ export async function HeroSection({ locale, ctaLabel }: HeroSectionProps) {
   const hero = await getHeroContent(locale);
 
   return (
-    <section className="relative flex min-h-[560px] items-center justify-center overflow-hidden">
+    <section className="relative flex min-h-[420px] items-center justify-center overflow-hidden sm:min-h-[500px] lg:min-h-[560px]">
       <Image
         src={hero.backgroundImage}
         alt=""
@@ -23,11 +23,11 @@ export async function HeroSection({ locale, ctaLabel }: HeroSectionProps) {
         sizes="100vw"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/70 to-primary" />
-      <div className="relative z-10 mx-auto max-w-4xl px-4 py-24 text-center text-white">
+      <div className="relative z-10 mx-auto max-w-4xl px-4 py-12 text-center text-white sm:py-16 md:py-24">
         <span className="mb-4 inline-block rounded-full bg-secondary px-4 py-1.5 text-sm font-semibold text-black">
           {pickLocalized(hero.badge, locale)}
         </span>
-        <h1 className="mb-4 text-3xl font-bold leading-tight md:text-5xl">
+        <h1 className="mb-4 text-2xl font-bold leading-tight sm:text-3xl md:text-5xl">
           {pickLocalized(hero.title, locale)}
         </h1>
         <p className="mx-auto mb-8 max-w-2xl text-base leading-8 text-white/85 md:text-lg">

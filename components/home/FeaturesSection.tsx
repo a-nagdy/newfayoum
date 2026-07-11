@@ -21,10 +21,10 @@ export async function FeaturesSection({ locale, title }: FeaturesSectionProps) {
   return (
     <section className="bg-white py-16">
       <div className="mx-auto max-w-7xl px-4 lg:px-6">
-        <h2 className="mb-10 text-center text-3xl font-bold text-foreground">
+        <h2 className="mb-10 text-center text-2xl font-bold text-foreground sm:text-3xl">
           {title}
         </h2>
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {features.map((feature) => {
             const Icon = iconMap[feature.icon];
             return (

@@ -6,6 +6,7 @@ import type { Product, ProductCategory } from "@/lib/api/types";
 import { pickLocalized } from "@/lib/api/types";
 import { SlidersHorizontal } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { BetakPropertyCard } from "./BetakPropertyCard";
 
 const PAGE_SIZE = 6;
@@ -49,6 +50,7 @@ export function BetakListing({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const activeCategory = searchParams.get("category");
   const sharedOnly = searchParams.get("shared") === "1";
@@ -85,16 +87,28 @@ export function BetakListing({
     <>
       <div className="relative z-20 -mt-10 mx-auto max-w-7xl px-4 lg:px-6">
         <div className="flex flex-col gap-4 rounded-2xl bg-white p-4 shadow-[0_8px_30px_rgba(35,58,114,0.1)] lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-col gap-3">
             <button
               type="button"
-              className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-semibold text-primary"
+              onClick={() => setFiltersOpen((open) => !open)}
+              aria-expanded={filtersOpen}
+              className="inline-flex w-fit items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-semibold text-primary lg:hidden"
             >
               <SlidersHorizontal className="h-4 w-4" />
               {labels.filters}
             </button>
 
-            {categories.map((cat) => (
+            <div
+              className={`flex flex-wrap items-center gap-2 ${
+                filtersOpen ? "flex" : "hidden lg:flex"
+              }`}
+            >
+              <span className="hidden items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-semibold text-primary lg:inline-flex">
+                <SlidersHorizontal className="h-4 w-4" />
+                {labels.filters}
+              </span>
+
+              {categories.map((cat) => (
               <button
                 key={cat.id}
                 type="button"
@@ -116,6 +130,7 @@ export function BetakListing({
             >
               {labels.sharedOnly}
             </button>
+            </div>
           </div>
 
           {/* <div className="flex items-center gap-2 self-end lg:self-auto">
@@ -165,7 +180,7 @@ export function BetakListing({
         )}
 
         {totalPages > 1 && (
-          <div className="mt-10 flex items-center justify-center gap-2">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
             {Array.from({ length: totalPages }, (_, i) => i + 1).map(
               (pageNumber) => (
                 <button

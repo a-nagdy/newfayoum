@@ -55,7 +55,7 @@ export function InvestmentCalculator({ locale }: InvestmentCalculatorProps) {
     <section className="bg-primary py-16 text-white">
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 lg:grid-cols-2 lg:px-6">
         <div>
-          <h2 className="mb-4 text-3xl font-bold">{t("title")}</h2>
+          <h2 className="mb-4 text-2xl font-bold sm:text-3xl">{t("title")}</h2>
           <p className="max-w-md leading-8 text-white/80">{t("description")}</p>
         </div>
 
@@ -63,9 +63,9 @@ export function InvestmentCalculator({ locale }: InvestmentCalculatorProps) {
           <div className="space-y-6">
             {sliders.map((slider) => (
               <div key={slider.label}>
-                <div className="mb-2 flex items-center justify-between text-sm">
+                <div className="mb-2 flex flex-col gap-1 text-sm sm:flex-row sm:items-center sm:justify-between">
                   <span>{slider.label}</span>
-                  <span className="font-semibold text-secondary">
+                  <span className="font-semibold text-secondary sm:shrink-0 sm:text-end">
                     {slider.display}
                   </span>
                 </div>

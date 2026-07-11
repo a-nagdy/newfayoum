@@ -48,7 +48,7 @@ export default async function BlogDetailPage({
         <span className="mb-4 inline-block rounded-full bg-primary/30 px-3 py-1 text-xs font-semibold text-secondary">
           {category}
         </span>
-        <h1 className="mb-4 text-3xl font-bold text-foreground md:text-4xl">
+        <h1 className="mb-4 text-2xl font-bold text-foreground sm:text-3xl md:text-4xl">
           {title}
         </h1>
         <div className="mb-8 flex gap-4 text-sm text-muted-foreground">
@@ -58,7 +58,7 @@ export default async function BlogDetailPage({
           </span>
         </div>
 
-        <div className="max-w-none leading-8 text-muted-foreground">
+        <div className="max-w-none break-words leading-8 text-muted-foreground">
           <p>{content}</p>
         </div>
       </div>
