@@ -1,7 +1,6 @@
-import { Building2, Percent, TrendingUp, Users } from "lucide-react";
-import { getSiteStats } from "@/lib/api/client";
 import type { Locale } from "@/i18n/routing";
-import { formatCompactMillions, formatNumber } from "@/lib/utils/format";
+import { getSiteStats } from "@/lib/api/client";
+import { Building2, Percent, TrendingUp, Users } from "lucide-react";
 
 interface StatsBarProps {
   locale: Locale;
@@ -19,17 +18,17 @@ export async function StatsBar({ locale, labels }: StatsBarProps) {
   const items = [
     {
       icon: Building2,
-      value: `+${formatNumber(stats.unitsSold, locale)}`,
+      value: `+${stats.unitsSold.toLocaleString()}`,
       label: labels.unitsSold,
     },
     {
       icon: Users,
-      value: `${formatNumber(stats.clients, locale)}+`,
+      value: `${stats.clients.toLocaleString()}+`,
       label: labels.clients,
     },
     {
       icon: TrendingUp,
-      value: formatCompactMillions(stats.totalInvestments, locale),
+      value: stats.totalInvestments.toLocaleString(),
       label: labels.totalInvestments,
     },
     {
@@ -41,12 +40,9 @@ export async function StatsBar({ locale, labels }: StatsBarProps) {
 
   return (
     <section className="border-y border-border bg-primary py-8 text-white">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:px-6">
+      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4  sm:gap-6 lg:grid-cols-4 lg:px-6">
         {items.map(({ icon: Icon, value, label }) => (
-          <div
-            key={label}
-            className="flex items-center gap-3 sm:gap-4"
-          >
+          <div key={label} className="flex items-center gap-3 sm:gap-4">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-secondary/15 text-secondary sm:h-12 sm:w-12">
               <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
