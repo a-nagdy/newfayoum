@@ -3,6 +3,7 @@ import type { SectionKey } from "../lib/api/types";
 import { syncCategories } from "../lib/db/categories";
 import { syncProducts } from "../lib/db/products";
 import { getSupabase, throwIfError } from "../lib/supabase/client";
+import { ensureUploadBucket } from "../lib/upload/save-image";
 
 const SECTION_KEYS: SectionKey[] = [
   "settings",
@@ -20,6 +21,7 @@ async function main() {
   const store = getDefaultContent();
   const supabase = getSupabase();
 
+  await ensureUploadBucket(supabase);
   await syncCategories(store.categories);
   await syncProducts(store.products);
 

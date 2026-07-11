@@ -41,3 +41,8 @@ create table if not exists content_sections (
   data jsonb not null,
   updated_at timestamptz not null default now()
 );
+
+-- Public bucket for admin image uploads (run once)
+insert into storage.buckets (id, name, public)
+values ('uploads', 'uploads', true)
+on conflict (id) do nothing;

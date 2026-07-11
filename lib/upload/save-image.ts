@@ -1,6 +1,8 @@
 import { randomUUID } from "crypto";
-import { mkdir, writeFile } from "fs/promises";
-import path from "path";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { getSupabase, throwIfError } from "@/lib/supabase/client";
+
+export const UPLOAD_BUCKET = "uploads";
 
 const ALLOWED_TYPES = new Map([
   ["image/jpeg", ".jpg"],
@@ -12,13 +14,28 @@ const ALLOWED_TYPES = new Map([
 
 const DEFAULT_MAX_BYTES = 5 * 1024 * 1024;
 
-function getUploadDir() {
-  return path.join(process.cwd(), "public", "uploads");
-}
-
 function getMaxBytes() {
   const mb = Number(process.env.UPLOAD_MAX_MB ?? "5");
   return Number.isFinite(mb) && mb > 0 ? mb * 1024 * 1024 : DEFAULT_MAX_BYTES;
+}
+
+export async function ensureUploadBucket(
+  supabase: SupabaseClient = getSupabase(),
+) {
+  const { data: buckets, error: listError } = await supabase.storage.listBuckets();
+  throwIfError(listError);
+
+  if (buckets?.some((bucket) => bucket.name === UPLOAD_BUCKET)) {
+    return;
+  }
+
+  const { error } = await supabase.storage.createBucket(UPLOAD_BUCKET, {
+    public: true,
+  });
+
+  if (error && !error.message.toLowerCase().includes("already exists")) {
+    throwIfError(error);
+  }
 }
 
 export async function saveUploadedImage(file: File): Promise<string> {
@@ -35,12 +52,20 @@ export async function saveUploadedImage(file: File): Promise<string> {
 
   const extension = ALLOWED_TYPES.get(file.type)!;
   const filename = `${randomUUID()}${extension}`;
-  const uploadDir = getUploadDir();
-
-  await mkdir(uploadDir, { recursive: true });
-
   const bytes = Buffer.from(await file.arrayBuffer());
-  await writeFile(path.join(uploadDir, filename), bytes);
+  const supabase = getSupabase();
 
-  return `/uploads/${filename}`;
+  await ensureUploadBucket(supabase);
+
+  const { error } = await supabase.storage
+    .from(UPLOAD_BUCKET)
+    .upload(filename, bytes, {
+      contentType: file.type,
+      upsert: false,
+    });
+
+  throwIfError(error);
+
+  const { data } = supabase.storage.from(UPLOAD_BUCKET).getPublicUrl(filename);
+  return data.publicUrl;
 }

@@ -104,7 +104,8 @@ export function ImageUploadField({
       </div>
 
       <p className="mt-3 text-xs text-gray-500">
-        JPG, PNG, WebP, GIF, or SVG. Max 5MB. Or paste an external URL below.
+        JPG, PNG, WebP, GIF, or SVG. Max 5MB. Stored in Supabase. Or paste an
+        external URL below.
       </p>
 
       <div className="mt-2">
