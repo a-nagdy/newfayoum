@@ -1,10 +1,13 @@
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { AnalyticsScripts } from "@/components/tracking/AnalyticsScripts";
+import { PageViewTracker } from "@/components/tracking/PageViewTracker";
 import { routing } from "@/i18n/routing";
 import { getLocaleParam } from "@/lib/i18n/get-locale-param";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 // Always render at runtime so Hostinger env vars (Supabase) are available
 export const dynamic = "force-dynamic";
@@ -30,6 +33,10 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
+      <AnalyticsScripts />
+      <Suspense fallback={null}>
+        <PageViewTracker />
+      </Suspense>
       <div
         lang={locale}
         dir={locale === "ar" ? "rtl" : "ltr"}
