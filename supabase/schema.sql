@@ -29,6 +29,7 @@ create table if not exists products (
   is_shared boolean not null default false,
   expected_return integer,
   monthly_installment integer,
+  funded_percent integer,
   category_id text not null references categories(id) on delete restrict,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()

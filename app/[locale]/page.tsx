@@ -26,7 +26,7 @@ export default async function HomePage({
 
   const [categories, products, promo] = await Promise.all([
     getCategories(locale),
-    getProducts(locale),
+    getProducts(locale, { excludeShared: true }),
     getPromoBanner(locale),
   ]);
 

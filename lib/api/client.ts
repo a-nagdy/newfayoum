@@ -44,13 +44,18 @@ export async function getProducts(
   options?: {
     categorySlug?: string;
     sharedOnly?: boolean;
+    excludeShared?: boolean;
   },
 ) {
   return listProducts(options);
 }
 
+export async function getBetakSharePageContent(_locale: Locale) {
+  return getSection("betakSharePage");
+}
+
 export async function getFeaturedProducts(_locale: Locale) {
-  const products = await listProducts();
+  const products = await listProducts({ excludeShared: true });
   return products.filter((p) => p.featured).slice(0, 3);
 }
 
@@ -89,7 +94,7 @@ export async function getRelatedProducts(
   excludeSlug: string,
   limit = 3,
 ) {
-  const products = await getProducts(locale, { categorySlug });
+  const products = await getProducts(locale, { categorySlug, excludeShared: true });
   return products.filter((p) => p.slug !== excludeSlug).slice(0, limit);
 }
 

@@ -13,6 +13,7 @@ interface CollectionManagerProps<T extends { id: string }> {
   getItemLabel: (item: T) => string;
   createItem: () => T;
   validate?: (items: T[]) => string | null;
+  mergeOnSave?: (items: T[]) => unknown;
   renderForm: (
     item: T,
     onChange: (item: T) => void,
@@ -27,6 +28,7 @@ export function CollectionManager<T extends { id: string }>({
   getItemLabel,
   createItem,
   validate,
+  mergeOnSave,
   renderForm,
 }: CollectionManagerProps<T>) {
   const [items, setItems] = useState(initialItems);
@@ -64,7 +66,7 @@ export function CollectionManager<T extends { id: string }>({
       if (error) throw new Error(error);
     }
 
-    await putApi(apiPath, items);
+    await putApi(apiPath, mergeOnSave ? mergeOnSave(items) : items);
   }
 
   return (

@@ -52,6 +52,35 @@ export interface Product {
   isShared?: boolean;
   expectedReturn?: number;
   monthlyInstallment?: number;
+  fundedPercent?: number;
+}
+
+export interface BetakShareStep {
+  id: string;
+  title: LocalizedString;
+  description: LocalizedString;
+}
+
+export interface BetakShareFaq {
+  id: string;
+  question: LocalizedString;
+  answer: LocalizedString;
+}
+
+export interface BetakSharePageContent {
+  hero: {
+    badge: LocalizedString;
+    title: LocalizedString;
+    subtitle: LocalizedString;
+  };
+  featurePills: LocalizedString[];
+  opportunitiesTitle: LocalizedString;
+  advantagesTitle: LocalizedString;
+  advantages: Feature[];
+  stepsTitle: LocalizedString;
+  steps: BetakShareStep[];
+  faqTitle: LocalizedString;
+  faq: BetakShareFaq[];
 }
 
 export interface BetakPageContent {
@@ -120,6 +149,7 @@ export interface ContentStore {
   stats: SiteStats;
   hero: HeroContent;
   betakPage: BetakPageContent;
+  betakSharePage: BetakSharePageContent;
   categories: ProductCategory[];
   products: Product[];
   investments: InvestmentOpportunity[];

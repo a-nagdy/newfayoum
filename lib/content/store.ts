@@ -9,6 +9,7 @@ const SECTION_KEYS: SectionKey[] = [
   "stats",
   "hero",
   "betakPage",
+  "betakSharePage",
   "investments",
   "features",
   "testimonials",

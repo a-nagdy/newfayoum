@@ -58,6 +58,7 @@ export function validateProduct(product: Product, index = 0): ValidationResult {
     checkInt("Area (sqm)", product.area, { min: 0, max: 1_000_000 }),
     checkInt("Expected return %", product.expectedReturn, { min: 0, max: 100 }),
     checkInt("Monthly installment", product.monthlyInstallment, { min: 0 }),
+    checkInt("Funded %", product.fundedPercent, { min: 0, max: 100 }),
   ];
 
   for (const err of checks) {

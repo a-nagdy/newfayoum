@@ -63,6 +63,145 @@ const betakPage = {
   backgroundImage: unsplash("photo-1582268611958-ebfd161ef9cf", 1920),
 };
 
+const betakSharePage = {
+  hero: {
+    badge: { ar: "استثمار مضمون", en: "Guaranteed Investment" },
+    title: {
+      ar: "استثمر في العقار بمبلغ أقل وامتلك حصة حقيقية",
+      en: "Invest in real estate with a smaller amount and own a real share",
+    },
+    subtitle: {
+      ar: "بيتك شير يتيح لك الاستثمار في عقارات مميزة بحد أدنى منخفض، مع عوائد مجزية وإدارة احترافية.",
+      en: "Betak Share lets you invest in premium properties with a low minimum, attractive returns, and professional management.",
+    },
+  },
+  featurePills: [
+    { ar: "استثمار عقاري", en: "Real Estate Investment" },
+    { ar: "عوائد مضمونة", en: "Guaranteed Returns" },
+    { ar: "مخاطر منخفضة", en: "Low Risk" },
+    { ar: "محفظة متنوعة", en: "Flexible Portfolio" },
+  ],
+  opportunitiesTitle: {
+    ar: "فرص الاستثمار المتاحة",
+    en: "Available Investment Opportunities",
+  },
+  advantagesTitle: {
+    ar: "مزايا الاستثمار في بيتك شير",
+    en: "Advantages of investing in Betak Share",
+  },
+  advantages: [
+    {
+      id: "1",
+      icon: "shield" as const,
+      title: { ar: "هيكل قانوني", en: "Legal Framework" },
+      description: {
+        ar: "حماية قانونية كاملة لاستثمارك مع عقود موثقة.",
+        en: "Full legal protection for your investment with verified contracts.",
+      },
+    },
+    {
+      id: "2",
+      icon: "chart" as const,
+      title: { ar: "عائد مرتفع", en: "High Return" },
+      description: {
+        ar: "عوائد سنوية تنافسية تصل إلى 14% وأكثر.",
+        en: "Competitive annual returns of up to 14% and beyond.",
+      },
+    },
+    {
+      id: "3",
+      icon: "building" as const,
+      title: { ar: "تكلفة دخول محدودة", en: "Limited Entry Cost" },
+      description: {
+        ar: "ابدأ الاستثمار بمبالغ صغيرة وامتلك حصة في عقار حقيقي.",
+        en: "Start investing with small amounts and own a share in a real property.",
+      },
+    },
+    {
+      id: "4",
+      icon: "people" as const,
+      title: { ar: "تنويع المحفظة", en: "Portfolio Diversification" },
+      description: {
+        ar: "وزّع استثماراتك على عدة عقارات لتقليل المخاطر.",
+        en: "Spread your investments across multiple properties to reduce risk.",
+      },
+    },
+  ],
+  stepsTitle: {
+    ar: "كيف يعمل الاستثمار المشترك؟",
+    en: "How does shared investment work?",
+  },
+  steps: [
+    {
+      id: "1",
+      title: { ar: "اختر العقار", en: "Choose the property" },
+      description: {
+        ar: "تصفح فرص الاستثمار المتاحة واختر العقار المناسب.",
+        en: "Browse available investment opportunities and choose the right property.",
+      },
+    },
+    {
+      id: "2",
+      title: { ar: "حدد حصتك", en: "Determine your share" },
+      description: {
+        ar: "حدد عدد الحصص التي تريد امتلاكها حسب ميزانيتك.",
+        en: "Decide how many shares you want to own based on your budget.",
+      },
+    },
+    {
+      id: "3",
+      title: { ar: "وقع العقد", en: "Sign the contract" },
+      description: {
+        ar: "أكمل الإجراءات القانونية ووقّع عقد الملكية المشتركة.",
+        en: "Complete the legal process and sign the shared ownership contract.",
+      },
+    },
+    {
+      id: "4",
+      title: { ar: "استلم العوائد", en: "Receive returns" },
+      description: {
+        ar: "استلم عوائدك بانتظام وفق جدول التوزيع المتفق عليه.",
+        en: "Receive your returns regularly according to the agreed distribution schedule.",
+      },
+    },
+  ],
+  faqTitle: { ar: "الأسئلة الشائعة", en: "Frequently Asked Questions" },
+  faq: [
+    {
+      id: "1",
+      question: { ar: "ما هي شروط البدء بالاستثمار؟", en: "What are the conditions to start investing?" },
+      answer: {
+        ar: "يجب أن تكون بالغاً وتمتلك هوية سارية، مع حد أدنى للاستثمار يختلف حسب العقار.",
+        en: "You must be of legal age with valid ID, with a minimum investment that varies by property.",
+      },
+    },
+    {
+      id: "2",
+      question: { ar: "كيف يتم صرف العوائد؟", en: "How are returns paid out?" },
+      answer: {
+        ar: "يتم توزيع العوائد بشكل ربع سنوي أو سنوي حسب نوع العقار والعقد.",
+        en: "Returns are distributed quarterly or annually depending on the property type and contract.",
+      },
+    },
+    {
+      id: "3",
+      question: { ar: "هل يمكنني البيع في أي وقت؟", en: "Can I sell at any time?" },
+      answer: {
+        ar: "نعم، يمكنك عرض حصتك للبيع في السوق الثانوي وفق الشروط المحددة.",
+        en: "Yes, you can list your share for sale on the secondary market under specified terms.",
+      },
+    },
+    {
+      id: "4",
+      question: { ar: "ما هي الضمانات القانونية؟", en: "What are the legal guarantees?" },
+      answer: {
+        ar: "جميع العقود موثقة قانونياً ومسجلة لضمان حقوق المستثمرين.",
+        en: "All contracts are legally verified and registered to protect investor rights.",
+      },
+    },
+  ],
+};
+
 const categories: ProductCategory[] = [
   { id: "1", slug: "apartments", name: { ar: "شقة", en: "Apartment" } },
   { id: "2", slug: "lands", name: { ar: "اراضي", en: "Lands" } },
@@ -130,7 +269,8 @@ const products: Product[] = [
       bathrooms: 3,
       area: 220,
       expectedReturn: 13,
-      monthlyInstallment: 18_500,
+      monthlyInstallment: 50_000,
+      fundedPercent: 65,
     },
   ),
   product(
@@ -148,7 +288,8 @@ const products: Product[] = [
       bathrooms: 4,
       area: 350,
       expectedReturn: 14,
-      monthlyInstallment: 28_000,
+      monthlyInstallment: 100_000,
+      fundedPercent: 45,
     },
   ),
   product(
@@ -183,7 +324,8 @@ const products: Product[] = [
       bathrooms: 1,
       area: 95,
       expectedReturn: 11,
-      monthlyInstallment: 7_500,
+      monthlyInstallment: 25_000,
+      fundedPercent: 72,
     },
   ),
   product(
@@ -200,7 +342,8 @@ const products: Product[] = [
       bathrooms: 1,
       area: 90,
       expectedReturn: 10,
-      monthlyInstallment: 9_500,
+      monthlyInstallment: 30_000,
+      fundedPercent: 88,
     },
   ),
 ];
@@ -408,6 +551,7 @@ export function getDefaultContent(): ContentStore {
     stats,
     hero,
     betakPage,
+    betakSharePage,
     categories,
     products,
     investments,

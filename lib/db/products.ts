@@ -40,6 +40,7 @@ export async function ensureProductsSeeded() {
 export async function listProducts(options?: {
   categorySlug?: string;
   sharedOnly?: boolean;
+  excludeShared?: boolean;
 }): Promise<Product[]> {
   await ensureProductsSeeded();
   const supabase = getSupabase();
@@ -57,6 +58,7 @@ export async function listProducts(options?: {
 
   if (categoryId) query = query.eq("category_id", categoryId);
   if (options?.sharedOnly) query = query.eq("is_shared", true);
+  if (options?.excludeShared) query = query.eq("is_shared", false);
 
   const { data, error } = await query;
   throwIfError(error);

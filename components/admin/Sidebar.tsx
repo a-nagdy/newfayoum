@@ -14,6 +14,7 @@ import {
   Package,
   Settings,
   Star,
+  HandCoins,
   TrendingUp,
 } from "lucide-react";
 import Link from "next/link";
@@ -27,6 +28,7 @@ const links = [
   { href: "/admin/promo", label: "Promo Banner", icon: Megaphone },
   { href: "/admin/categories", label: "Categories", icon: Layers },
   { href: "/admin/products", label: "Properties / Units", icon: Package },
+  { href: "/admin/betak-share", label: "Betak Share", icon: HandCoins },
   { href: "/admin/investments", label: "Investments", icon: TrendingUp },
   { href: "/admin/features", label: "Features", icon: Building2 },
   { href: "/admin/testimonials", label: "Testimonials", icon: Star },

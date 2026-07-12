@@ -13,7 +13,6 @@
     "units": "الوحدات",
     "blogs": "المدونة",
     "startInvesting": "ابدأ الاستثمار"
-    
   },
   "hero": {
     "cta": "استكشف الوحدات"
@@ -102,6 +101,9 @@
     "bathrooms": "حمام",
     "noResults": "لا توجد وحدات مطابقة للفلاتر المحددة.",
     "whatsapp": "تواصل عبر واتساب"
+  },
+  "betakSharePage": {
+    "opportunitiesAvailable": "فرصة متاحة"
   },
   "common": {
     "currency": "ج.م",

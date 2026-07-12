@@ -27,6 +27,7 @@ export type ProductRow = {
   is_shared: boolean;
   expected_return: number | null;
   monthly_installment: number | null;
+  funded_percent: number | null;
   category_id: string;
   categories: { slug: string } | null;
 };
@@ -64,6 +65,7 @@ export function toProduct(row: ProductRow): Product {
     isShared: row.is_shared,
     expectedReturn: row.expected_return ?? undefined,
     monthlyInstallment: row.monthly_installment ?? undefined,
+    fundedPercent: row.funded_percent ?? undefined,
   };
 }
 
@@ -97,6 +99,7 @@ export function toProductWriteRow(item: Product, categoryId: string) {
     is_shared: Boolean(item.isShared),
     expected_return: item.expectedReturn ?? null,
     monthly_installment: item.monthlyInstallment ?? null,
+    funded_percent: item.fundedPercent ?? null,
     category_id: categoryId,
   };
 }

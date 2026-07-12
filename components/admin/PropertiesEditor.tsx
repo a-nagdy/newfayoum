@@ -16,9 +16,11 @@ import { ImageUploadField } from "./ImageUploadField";
 export function PropertiesEditor({
   initialData,
   categories,
+  preservedProducts = [],
 }: {
   initialData: Product[];
   categories: ProductCategory[];
+  preservedProducts?: Product[];
 }) {
   const categoryOptions = categories.map((cat) => ({
     value: cat.slug,
@@ -28,13 +30,15 @@ export function PropertiesEditor({
   return (
     <CollectionManager
       title="Properties / Units"
-      description="Real estate listings shown on the homepage and products pages."
+      description="Real estate listings shown on the homepage and products pages. Shared products are managed in Betak Share admin."
       apiPath="/api/products"
       initialItems={initialData}
       validate={(items) => {
-        const result = validateProducts(items);
+        const merged = [...preservedProducts, ...items];
+        const result = validateProducts(merged);
         return result.ok ? null : result.message;
       }}
+      mergeOnSave={(items) => [...preservedProducts, ...items]}
       getItemLabel={(item) => item.title.en || item.title.ar || item.slug}
       createItem={() => ({
         id: newId(),
@@ -147,11 +151,6 @@ export function PropertiesEditor({
               label="Mark as new"
               checked={Boolean(item.isNew)}
               onChange={(isNew) => onChange({ ...item, isNew })}
-            />
-            <CheckboxField
-              label="Shared / Betak Share"
-              checked={Boolean(item.isShared)}
-              onChange={(isShared) => onChange({ ...item, isShared })}
             />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">

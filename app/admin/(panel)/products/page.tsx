@@ -9,6 +9,10 @@ export default async function AdminProductsPage() {
   ]);
 
   return (
-    <PropertiesEditor initialData={products} categories={categories} />
+    <PropertiesEditor
+      initialData={products.filter((p) => !p.isShared)}
+      preservedProducts={products.filter((p) => p.isShared)}
+      categories={categories}
+    />
   );
 }

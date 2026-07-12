@@ -102,6 +102,9 @@
     "noResults": "No units match the selected filters.",
     "whatsapp": "Contact via WhatsApp"
   },
+  "betakSharePage": {
+    "opportunitiesAvailable": "opportunities available"
+  },
   "common": {
     "currency": "EGP",
     "million": "M",
