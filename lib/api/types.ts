@@ -53,6 +53,17 @@ export interface Product {
   expectedReturn?: number;
   monthlyInstallment?: number;
   fundedPercent?: number;
+  /** Long-form unit description for the detail page. */
+  description?: LocalizedString;
+  /** Extra gallery images (main `image` is always first). */
+  gallery?: string[];
+  /** Amenity labels shown as pills on the detail page. */
+  amenities?: LocalizedString[];
+  /** Optional Google Maps embed or place URL. */
+  mapUrl?: string;
+  floors?: number;
+  parkingSpaces?: number;
+  marketValue?: number;
 }
 
 export interface BetakShareStep {
@@ -100,6 +111,15 @@ export interface InvestmentOpportunity {
   fundedPercent: number;
   currency: string;
   isNew?: boolean;
+  description?: LocalizedString;
+  gallery?: string[];
+  amenities?: LocalizedString[];
+  mapUrl?: string;
+  bedrooms?: number;
+  bathrooms?: number;
+  area?: number;
+  floors?: number;
+  parkingSpaces?: number;
 }
 
 export interface Feature {

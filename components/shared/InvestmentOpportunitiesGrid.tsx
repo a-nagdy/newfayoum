@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Share2 } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import type { InvestmentOpportunity } from "@/lib/api/types";
 import { pickLocalized } from "@/lib/api/types";
 import type { Locale } from "@/i18n/routing";
@@ -29,7 +30,10 @@ export function InvestmentOpportunitiesGrid({
           key={item.id}
           className="overflow-hidden rounded-2xl border border-border bg-card shadow-lg"
         >
-          <div className="relative aspect-[4/3]">
+          <Link
+            href={`/investments/${item.slug}`}
+            className="relative block aspect-4/3"
+          >
             <Image
               src={item.image}
               alt={pickLocalized(item.title, locale)}
@@ -42,11 +46,13 @@ export function InvestmentOpportunitiesGrid({
                 {locale === "ar" ? "جديد" : "New"}
               </span>
             )}
-          </div>
+          </Link>
           <div className="p-5">
-            <h3 className="mb-1 text-lg font-bold text-foreground">
-              {pickLocalized(item.title, locale)}
-            </h3>
+            <Link href={`/investments/${item.slug}`}>
+              <h3 className="mb-1 text-lg font-bold text-foreground transition-colors hover:text-primary">
+                {pickLocalized(item.title, locale)}
+              </h3>
+            </Link>
             <p className="mb-4 text-sm text-muted-foreground">
               {pickLocalized(item.location, locale)}
             </p>
@@ -79,7 +85,7 @@ export function InvestmentOpportunitiesGrid({
                 <span>{labels.funded}</span>
                 <span>{item.fundedPercent}%</span>
               </div>
-              <div className="h-2 overflow-hidden rounded-full bg-white/10">
+              <div className="h-2 overflow-hidden rounded-full bg-muted">
                 <div
                   className="h-full rounded-full bg-secondary"
                   style={{ width: `${item.fundedPercent}%` }}
@@ -87,19 +93,19 @@ export function InvestmentOpportunitiesGrid({
               </div>
             </div>
             <div className="flex items-center justify-between gap-3">
-              <button
-                type="button"
+              <Link
+                href={`/investments/${item.slug}#inquire`}
                 className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-light"
               >
                 {labels.investNow}
-              </button>
-              <button
-                type="button"
-                aria-label="Share"
+              </Link>
+              <Link
+                href={`/investments/${item.slug}`}
+                aria-label="Details"
                 className="text-muted-foreground transition-colors hover:text-secondary"
               >
                 <Share2 className="h-5 w-5" />
-              </button>
+              </Link>
             </div>
           </div>
         </article>

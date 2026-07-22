@@ -93,9 +93,31 @@ export async function getRelatedProducts(
   categorySlug: string,
   excludeSlug: string,
   limit = 3,
+  options?: { sharedOnly?: boolean; excludeShared?: boolean },
 ) {
-  const products = await getProducts(locale, { categorySlug, excludeShared: true });
+  const products = await getProducts(locale, {
+    categorySlug,
+    sharedOnly: options?.sharedOnly,
+    excludeShared: options?.excludeShared ?? !options?.sharedOnly,
+  });
   return products.filter((p) => p.slug !== excludeSlug).slice(0, limit);
+}
+
+export async function getInvestmentOpportunityBySlug(
+  _locale: Locale,
+  slug: string,
+) {
+  const investments = await getSection("investments");
+  return investments.find((item) => item.slug === slug) ?? null;
+}
+
+export async function getRelatedInvestments(
+  _locale: Locale,
+  excludeSlug: string,
+  limit = 3,
+) {
+  const investments = await getSection("investments");
+  return investments.filter((item) => item.slug !== excludeSlug).slice(0, limit);
 }
 
 export async function getProductCount(_locale: Locale) {

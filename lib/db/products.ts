@@ -6,10 +6,56 @@ import { getSupabase, throwIfError } from "@/lib/supabase/client";
 
 const productSelect = "*, categories(slug)";
 
+let detailsColumnSupported: boolean | null = null;
+let fundedPercentSupported: boolean | null = null;
+
+async function hasColumn(column: string) {
+  const supabase = getSupabase();
+  const { error } = await supabase.from("products").select(column).limit(1);
+  return !error;
+}
+
+async function hasDetailsColumn() {
+  if (detailsColumnSupported == null) {
+    detailsColumnSupported = await hasColumn("details");
+  }
+  return detailsColumnSupported;
+}
+
+async function hasFundedPercentColumn() {
+  if (fundedPercentSupported == null) {
+    fundedPercentSupported = await hasColumn("funded_percent");
+  }
+  return fundedPercentSupported;
+}
+
+function writeRow(
+  item: Product,
+  categoryId: string,
+  options: { includeDetails: boolean; includeFundedPercent: boolean },
+) {
+  const row = toProductWriteRow(item, categoryId);
+  const result: Record<string, unknown> = { ...row };
+
+  if (!options.includeDetails) delete result.details;
+  if (!options.includeFundedPercent) delete result.funded_percent;
+
+  return result;
+}
+
+async function columnOptions() {
+  const [includeDetails, includeFundedPercent] = await Promise.all([
+    hasDetailsColumn(),
+    hasFundedPercentColumn(),
+  ]);
+  return { includeDetails, includeFundedPercent };
+}
+
 async function seedDefaultProducts() {
   await ensureCategoriesSeeded();
   const defaults = getDefaultProducts();
   const supabase = getSupabase();
+  const options = await columnOptions();
 
   const rows = [];
   for (const item of defaults) {
@@ -17,7 +63,7 @@ async function seedDefaultProducts() {
     if (!categoryId) {
       throw new Error(`Missing category for product seed: ${item.categorySlug}`);
     }
-    rows.push(toProductWriteRow(item, categoryId));
+    rows.push(writeRow(item, categoryId, options));
   }
 
   const { error } = await supabase.from("products").upsert(rows, {
@@ -83,6 +129,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
 export async function syncProducts(items: Product[]): Promise<Product[]> {
   await ensureProductsSeeded();
   const supabase = getSupabase();
+  const options = await columnOptions();
 
   const { data: existing, error: existingError } = await supabase
     .from("products")
@@ -98,7 +145,7 @@ export async function syncProducts(items: Product[]): Promise<Product[]> {
     if (!categoryId) {
       throw new Error(`Unknown category slug: ${item.categorySlug}`);
     }
-    rows.push(toProductWriteRow(item, categoryId));
+    rows.push(writeRow(item, categoryId, options));
   }
 
   const { error: upsertError } = await supabase

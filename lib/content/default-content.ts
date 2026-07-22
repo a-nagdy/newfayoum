@@ -209,6 +209,15 @@ const categories: ProductCategory[] = [
   { id: "4", slug: "shops", name: { ar: "محلات", en: "Shops" } },
 ];
 
+const defaultAmenities = [
+  { ar: "أمن وحراسة", en: "Security" },
+  { ar: "موقف سيارات", en: "Parking" },
+  { ar: "مسبح", en: "Pool" },
+  { ar: "حديقة", en: "Garden" },
+  { ar: "مصعد", en: "Elevator" },
+  { ar: "تكييف مركزي", en: "Central AC" },
+];
+
 const product = (
   id: string,
   slug: string,
@@ -231,6 +240,9 @@ const product = (
   area: 180,
   postedAt: "2026-03-01",
   categorySlug,
+  amenities: defaultAmenities,
+  floors: 2,
+  parkingSpaces: 1,
   ...opts,
 });
 
@@ -251,6 +263,18 @@ const products: Product[] = [
       area: 145,
       expectedReturn: 12,
       monthlyInstallment: 12_500,
+      marketValue: 2_100_000,
+      floors: 1,
+      parkingSpaces: 1,
+      description: {
+        ar: "شقة فاخرة بتشطيب كامل في قلب نيو الفيوم، مناسبة للسكن أو الاستثمار بعائد جذاب.",
+        en: "A fully finished luxury apartment in the heart of New Fayoum, ideal for living or investment with attractive returns.",
+      },
+      gallery: [
+        unsplash("photo-1600607687939-ce8a6c25118c"),
+        unsplash("photo-1600566753190-17f0baa2a6c3"),
+        unsplash("photo-1600573472592-401b489a3cdc"),
+      ],
     },
   ),
   product(
@@ -271,12 +295,23 @@ const products: Product[] = [
       expectedReturn: 13,
       monthlyInstallment: 50_000,
       fundedPercent: 65,
+      marketValue: 3_000_000,
+      floors: 2,
+      parkingSpaces: 2,
+      description: {
+        ar: "تاون هاوس عصري داخل كمبوند متكامل الخدمات، متاح بنظام الاستثمار المشترك.",
+        en: "A modern townhouse inside a full-service compound, available through shared investment.",
+      },
+      gallery: [
+        unsplash("photo-1600047509807-ba8f99d36b0a"),
+        unsplash("photo-1600566753086-00f18fb6b3ea"),
+      ],
     },
   ),
   product(
     "3",
     "villa-lake-view",
-    { ar: "فيلا بإطلالة على البحيرة", en: "Villa with Lake View" },
+    { ar: "فيلا بإطلالة على بحيرة قارون", en: "Villa overlooking Lake Qarun" },
     { ar: "بحيرة قارون، الفيوم", en: "Lake Qarun, Fayoum" },
     4_500_000,
     "lands",
@@ -290,6 +325,20 @@ const products: Product[] = [
       expectedReturn: 14,
       monthlyInstallment: 100_000,
       fundedPercent: 45,
+      marketValue: 5_200_000,
+      floors: 2,
+      parkingSpaces: 3,
+      description: {
+        ar: "فيلا واسعة بإطلالة مباشرة على بحيرة قارون، مصممة للراحة والاستثمار طويل الأجل مع مرافق فاخرة وحديقة خاصة.",
+        en: "A spacious villa with a direct Lake Qarun view, designed for comfort and long-term investment with luxury amenities and a private garden.",
+      },
+      gallery: [
+        unsplash("photo-1613490493576-7fde63acd811"),
+        unsplash("photo-1600607687644-c7171b42498b"),
+        unsplash("photo-1600585154526-990dced4db0d"),
+      ],
+      mapUrl:
+        "https://maps.google.com/maps?q=Lake%20Qarun%20Fayoum&t=&z=13&ie=UTF8&iwloc=&output=embed",
     },
   ),
   product(
@@ -307,6 +356,14 @@ const products: Product[] = [
       area: 280,
       expectedReturn: 12,
       monthlyInstallment: 22_000,
+      marketValue: 4_000_000,
+      floors: 2,
+      parkingSpaces: 2,
+      description: {
+        ar: "فيلا مستقلة بحديقة خاصة وتشطيب راقٍ في موقع مميز بنيو الفيوم.",
+        en: "A standalone villa with a private garden and premium finishes in a prime New Fayoum location.",
+      },
+      gallery: [unsplash("photo-1600585154340-be6161a56a0c")],
     },
   ),
   product(
@@ -326,6 +383,13 @@ const products: Product[] = [
       expectedReturn: 11,
       monthlyInstallment: 25_000,
       fundedPercent: 72,
+      floors: 1,
+      parkingSpaces: 1,
+      description: {
+        ar: "شقة مفروشة جاهزة للتأجير فوراً، مناسبة للمستثمرين الباحثين عن دخل شهري.",
+        en: "A furnished apartment ready for immediate rental, suited for investors seeking monthly income.",
+      },
+      gallery: [unsplash("photo-1560448204-e02f11c3d0e2")],
     },
   ),
   product(
@@ -344,6 +408,13 @@ const products: Product[] = [
       expectedReturn: 10,
       monthlyInstallment: 30_000,
       fundedPercent: 88,
+      floors: 1,
+      parkingSpaces: 1,
+      description: {
+        ar: "شاليه ريفي هادئ على بحيرة قارون، فرصة استثمارية بنظام الحصص.",
+        en: "A quiet rural chalet on Lake Qarun — a shared-ownership investment opportunity.",
+      },
+      gallery: [unsplash("photo-1600047509807-ba8f99d36b0a")],
     },
   ),
 ];
@@ -361,6 +432,20 @@ const investments: InvestmentOpportunity[] = [
     fundedPercent: 72,
     currency: "EGP",
     isNew: true,
+    bedrooms: 1,
+    bathrooms: 1,
+    area: 65,
+    floors: 1,
+    parkingSpaces: 1,
+    amenities: defaultAmenities.slice(0, 4),
+    description: {
+      ar: "استوديو مفروش بالكامل في موقع حيوي، مناسب للاستثمار المشترك بعائد سنوي تنافسي.",
+      en: "A fully furnished studio in a prime location, ideal for shared investment with competitive annual returns.",
+    },
+    gallery: [
+      unsplash("photo-1522708323590-d24dbb6b0267"),
+      unsplash("photo-1600210492486-724fe5c67fb0"),
+    ],
   },
   {
     id: "2",
@@ -373,6 +458,17 @@ const investments: InvestmentOpportunity[] = [
     minInvestment: 100_000,
     fundedPercent: 45,
     currency: "EGP",
+    bedrooms: 2,
+    bathrooms: 2,
+    area: 110,
+    floors: 1,
+    parkingSpaces: 1,
+    amenities: defaultAmenities,
+    description: {
+      ar: "حصة في شاليه مطل على البحر بالساحل الشمالي، مع إدارة احترافية للتأجير الموسمي.",
+      en: "A share in a sea-view North Coast chalet, with professional seasonal rental management.",
+    },
+    gallery: [unsplash("photo-1600585154340-be6161a56a0c")],
   },
   {
     id: "3",
@@ -385,6 +481,22 @@ const investments: InvestmentOpportunity[] = [
     minInvestment: 200_000,
     fundedPercent: 88,
     currency: "EGP",
+    bedrooms: 5,
+    bathrooms: 4,
+    area: 320,
+    floors: 2,
+    parkingSpaces: 2,
+    amenities: defaultAmenities,
+    description: {
+      ar: "استثمر في حصة من فيلا فاخرة في نيو الفيوم وشارك في العائد مع مستثمرين آخرين.",
+      en: "Invest in a share of a luxury villa in New Fayoum and share returns with other investors.",
+    },
+    gallery: [
+      unsplash("photo-1613490493576-7fde63acd811"),
+      unsplash("photo-1600607687644-c7171b42498b"),
+    ],
+    mapUrl:
+      "https://maps.google.com/maps?q=New%20Fayoum&t=&z=13&ie=UTF8&iwloc=&output=embed",
   },
 ];
 

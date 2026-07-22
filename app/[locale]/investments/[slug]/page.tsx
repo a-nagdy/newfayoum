@@ -2,44 +2,43 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { getLocaleParam } from "@/lib/i18n/get-locale-param";
 import {
-  getProductBySlug,
-  getRelatedProducts,
+  getInvestmentOpportunityBySlug,
+  getRelatedInvestments,
   getSiteSettings,
 } from "@/lib/api/client";
-import type { Product } from "@/lib/api/types";
+import type { InvestmentOpportunity } from "@/lib/api/types";
 import {
   UnitDetailView,
   type UnitDetailModel,
 } from "@/components/products/UnitDetailView";
 
-function toUnitModel(product: Product): UnitDetailModel {
+function toUnitModel(item: InvestmentOpportunity): UnitDetailModel {
   return {
-    slug: product.slug,
-    title: product.title,
-    location: product.location,
-    price: product.price,
-    currency: product.currency,
-    image: product.image,
-    gallery: product.gallery,
-    description: product.description,
-    amenities: product.amenities,
-    mapUrl: product.mapUrl,
-    bedrooms: product.bedrooms,
-    bathrooms: product.bathrooms,
-    area: product.area,
-    floors: product.floors,
-    parkingSpaces: product.parkingSpaces,
-    expectedReturn: product.expectedReturn,
-    monthlyInstallment: product.monthlyInstallment,
-    fundedPercent: product.fundedPercent,
-    marketValue: product.marketValue,
-    featured: product.featured,
-    isNew: product.isNew,
-    isShared: product.isShared,
+    slug: item.slug,
+    title: item.title,
+    location: item.location,
+    price: item.totalValue,
+    currency: item.currency,
+    image: item.image,
+    gallery: item.gallery,
+    description: item.description,
+    amenities: item.amenities,
+    mapUrl: item.mapUrl,
+    bedrooms: item.bedrooms,
+    bathrooms: item.bathrooms,
+    area: item.area,
+    floors: item.floors,
+    parkingSpaces: item.parkingSpaces,
+    expectedReturn: item.expectedReturn,
+    fundedPercent: item.fundedPercent,
+    marketValue: item.totalValue,
+    minInvestment: item.minInvestment,
+    isNew: item.isNew,
+    isShared: true,
   };
 }
 
-export default async function ProductDetailPage({
+export default async function InvestmentDetailPage({
   params,
 }: {
   params: Promise<{ locale: string; slug: string }>;
@@ -47,44 +46,30 @@ export default async function ProductDetailPage({
   const { slug } = await params;
   const locale = await getLocaleParam(params);
   const t = await getTranslations();
-  const [product, settings] = await Promise.all([
-    getProductBySlug(locale, slug),
+  const [investment, settings, related] = await Promise.all([
+    getInvestmentOpportunityBySlug(locale, slug),
     getSiteSettings(locale),
+    getRelatedInvestments(locale, slug, 3),
   ]);
 
-  if (!product) notFound();
-
-  const related = await getRelatedProducts(
-    locale,
-    product.categorySlug,
-    product.slug,
-    3,
-    product.isShared
-      ? { sharedOnly: true }
-      : { excludeShared: true },
-  );
-
-  const backHref = product.isShared ? "/betak" : "/products";
-  const backLabel = product.isShared
-    ? t("product.backToBetak")
-    : t("product.backToProducts");
+  if (!investment) notFound();
 
   return (
     <UnitDetailView
-      unit={toUnitModel(product)}
+      unit={toUnitModel(investment)}
       locale={locale}
-      backHref={backHref}
-      backLabel={backLabel}
+      backHref="/betak-share"
+      backLabel={t("product.backToBetakShare")}
       phone={settings.phone}
       whatsappUrl={settings.whatsappUrl}
       similar={related.map(toUnitModel)}
-      similarHrefBase="/products"
+      similarHrefBase="/investments"
       labels={{
         featured: t("product.featured"),
         new: t("betakPage.new"),
         shared: t("betakPage.shared"),
         area: t("product.area"),
-        price: t("product.price"),
+        price: t("investment.totalValue"),
         bedrooms: t("product.bedrooms"),
         bathrooms: t("product.bathrooms"),
         floors: t("product.floors"),
@@ -94,17 +79,17 @@ export default async function ProductDetailPage({
         amenities: t("product.amenities"),
         investmentAnalysis: t("product.investmentAnalysis"),
         expectedReturn: t("investment.expectedReturn"),
-        marketValue: t("product.marketValue"),
+        marketValue: t("investment.totalValue"),
         monthlyInstallment: t("product.monthlyInstallment"),
         minInvestment: t("investment.minInvestment"),
         funded: t("investment.funded"),
         location: t("product.location"),
         viewOnMap: t("product.viewOnMap"),
-        similar: t("product.related"),
+        similar: t("product.relatedInvestments"),
         details: t("product.details"),
         invest: t("investment.investNow"),
         inquiry: {
-          price: t("product.price"),
+          price: t("investment.minInvestment"),
           name: t("product.inquiryName"),
           phone: t("product.inquiryPhone"),
           email: t("product.inquiryEmail"),

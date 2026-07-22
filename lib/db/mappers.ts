@@ -1,10 +1,20 @@
-import type { Product, ProductCategory } from "@/lib/api/types";
+import type { LocalizedString, Product, ProductCategory } from "@/lib/api/types";
 
 export type CategoryRow = {
   id: string;
   slug: string;
   name_ar: string;
   name_en: string;
+};
+
+export type ProductDetailsJson = {
+  description?: LocalizedString;
+  gallery?: string[];
+  amenities?: LocalizedString[];
+  mapUrl?: string;
+  floors?: number;
+  parkingSpaces?: number;
+  marketValue?: number;
 };
 
 export type ProductRow = {
@@ -28,6 +38,7 @@ export type ProductRow = {
   expected_return: number | null;
   monthly_installment: number | null;
   funded_percent: number | null;
+  details?: ProductDetailsJson | null;
   category_id: string;
   categories: { slug: string } | null;
 };
@@ -45,7 +56,21 @@ export function toCategory(row: CategoryRow): ProductCategory {
   };
 }
 
+function packDetails(item: Product): ProductDetailsJson {
+  const details: ProductDetailsJson = {};
+  if (item.description) details.description = item.description;
+  if (item.gallery?.length) details.gallery = item.gallery;
+  if (item.amenities?.length) details.amenities = item.amenities;
+  if (item.mapUrl) details.mapUrl = item.mapUrl;
+  if (item.floors != null) details.floors = item.floors;
+  if (item.parkingSpaces != null) details.parkingSpaces = item.parkingSpaces;
+  if (item.marketValue != null) details.marketValue = item.marketValue;
+  return details;
+}
+
 export function toProduct(row: ProductRow): Product {
+  const details = row.details ?? {};
+
   return {
     id: row.id,
     slug: row.slug,
@@ -66,6 +91,13 @@ export function toProduct(row: ProductRow): Product {
     expectedReturn: row.expected_return ?? undefined,
     monthlyInstallment: row.monthly_installment ?? undefined,
     fundedPercent: row.funded_percent ?? undefined,
+    description: details.description,
+    gallery: details.gallery,
+    amenities: details.amenities,
+    mapUrl: details.mapUrl,
+    floors: details.floors,
+    parkingSpaces: details.parkingSpaces,
+    marketValue: details.marketValue,
   };
 }
 
@@ -100,6 +132,7 @@ export function toProductWriteRow(item: Product, categoryId: string) {
     expected_return: item.expectedReturn ?? null,
     monthly_installment: item.monthlyInstallment ?? null,
     funded_percent: item.fundedPercent ?? null,
+    details: packDetails(item),
     category_id: categoryId,
   };
 }

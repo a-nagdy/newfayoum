@@ -30,6 +30,7 @@ create table if not exists products (
   expected_return integer,
   monthly_installment integer,
   funded_percent integer,
+  details jsonb default '{}'::jsonb,
   category_id text not null references categories(id) on delete restrict,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()

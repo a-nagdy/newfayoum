@@ -10,9 +10,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = getSiteUrl();
   const now = new Date();
 
-  const [products, blogPosts] = await Promise.all([
-    listProducts({ excludeShared: true }),
+  const [products, blogPosts, investments] = await Promise.all([
+    listProducts(),
     getSection("blog"),
+    getSection("investments"),
   ]);
 
   const entries: MetadataRoute.Sitemap = [];
@@ -31,6 +32,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       entries.push({
         url: `${baseUrl}/${locale}/products/${product.slug}`,
         lastModified: new Date(product.postedAt),
+        changeFrequency: "weekly",
+        priority: 0.7,
+      });
+    }
+
+    for (const investment of investments) {
+      entries.push({
+        url: `${baseUrl}/${locale}/investments/${investment.slug}`,
+        lastModified: now,
         changeFrequency: "weekly",
         priority: 0.7,
       });
