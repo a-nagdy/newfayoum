@@ -1,4 +1,5 @@
 import type { Locale } from "@/i18n/routing";
+import { getDefaultContent } from "@/lib/content/default-content";
 import type {
   BlogPost,
   Feature,
@@ -269,68 +270,7 @@ export const mockTestimonials: Testimonial[] = [
   },
 ];
 
-export const mockBlogPosts: BlogPost[] = [
-  {
-    id: "1",
-    slug: "real-estate-investment-guide",
-    title: {
-      ar: "دليلك الشامل للاستثمار العقاري في مصر",
-      en: "Your Complete Guide to Real Estate Investment in Egypt",
-    },
-    excerpt: {
-      ar: "تعرف على أساسيات الاستثمار العقاري وكيف تبدأ رحلتك الاستثمارية بأمان.",
-      en: "Learn the basics of real estate investment and how to start your journey safely.",
-    },
-    content: {
-      ar: "الاستثمار العقاري من أقوى أدوات بناء الثروة على المدى الطويل...",
-      en: "Real estate investment is one of the strongest wealth-building tools over the long term...",
-    },
-    image: unsplash("photo-1560518883-ce09059eeffa"),
-    category: { ar: "استثمار", en: "Investment" },
-    publishedAt: "2026-02-15",
-    readingTimeMinutes: 5,
-  },
-  {
-    id: "2",
-    slug: "new-fayoum-opportunity",
-    title: {
-      ar: "لماذا نيو الفيوم فرصة استثمارية واعدة؟",
-      en: "Why New Fayoum Is a Promising Investment Opportunity",
-    },
-    excerpt: {
-      ar: "اكتشف أسباب نمو الطلب على العقارات في نيو الفيوم والعوائد المتوقعة.",
-      en: "Discover why demand for properties in New Fayoum is growing and expected returns.",
-    },
-    content: {
-      ar: "تشهد منطقة نيو الفيوم نمواً عمرانياً متسارعاً...",
-      en: "The New Fayoum area is experiencing rapid urban growth...",
-    },
-    image: unsplash("photo-1600585154340-be6161a56a0c"),
-    category: { ar: "عقارات", en: "Real Estate" },
-    publishedAt: "2026-02-10",
-    readingTimeMinutes: 4,
-  },
-  {
-    id: "3",
-    slug: "shared-ownership-explained",
-    title: {
-      ar: "الملكية المشتركة: كيف تعمل ولماذا تناسبك",
-      en: "Shared Ownership: How It Works and Why It Suits You",
-    },
-    excerpt: {
-      ar: "شرح مبسط لنموذج الملكية المشتركة وكيف يمكنك البدء بمبلغ صغير.",
-      en: "A simple explanation of shared ownership and how you can start with a small amount.",
-    },
-    content: {
-      ar: "الملكية المشتركة تتيح لعدة مستثمرين امتلاك حصص في عقار واحد...",
-      en: "Shared ownership allows multiple investors to own shares in a single property...",
-    },
-    image: unsplash("photo-1450101499163-c8848c66ca85"),
-    category: { ar: "استثمار", en: "Investment" },
-    publishedAt: "2026-02-05",
-    readingTimeMinutes: 6,
-  },
-];
+export const mockBlogPosts: BlogPost[] = getDefaultContent().blog;
 
 export const mockPromoBanner: PromoBanner = {
   title: { ar: "نيو الفيوم", en: "New Fayoum" },

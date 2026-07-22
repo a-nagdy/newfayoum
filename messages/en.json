@@ -70,11 +70,21 @@
   },
   "blog": {
     "title": "Latest Articles",
+    "pageTitle": "Real Estate Blog",
+    "pageSubtitle": "Tips, insights, and the latest news on real estate investment in Fayoum and Egypt.",
     "viewAll": "View All",
     "readMore": "Read More",
     "minRead": "min read",
     "backToBlog": "Back to Blog",
-    "related": "Related Articles"
+    "related": "Related Articles",
+    "allCategories": "All",
+    "featured": "Featured Article",
+    "empty": "No articles in this category yet.",
+    "newsletterTitle": "Subscribe to our newsletter",
+    "newsletterSubtitle": "Get the latest articles and investment offers delivered to your inbox.",
+    "newsletterPlaceholder": "Your email address",
+    "newsletterButton": "Subscribe",
+    "newsletterSuccess": "Subscribed successfully. Thank you!"
   },
   "footer": {
     "quickLinks": "Quick Links",

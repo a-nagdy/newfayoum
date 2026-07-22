@@ -466,6 +466,43 @@ const testimonials: Testimonial[] = [
 const blog: BlogPost[] = [
   {
     id: "1",
+    slug: "why-fayoum-ideal-investment-2025",
+    title: {
+      ar: "لماذا الفيوم الوجهة الاستثمارية المثالية في 2025؟",
+      en: "Why is Fayoum the Ideal Investment Destination in 2025?",
+    },
+    excerpt: {
+      ar: "اكتشف لماذا أصبحت الفيوم من أقوى الفرص العقارية في مصر، مع نمو الأسعار والعوائد المتوقعة.",
+      en: "Discover why Fayoum has become one of Egypt’s strongest real estate opportunities, with rising prices and expected yields.",
+    },
+    content: {
+      ar: "تشهد محافظة الفيوم تحولاً عمرانياً واستثمارياً غير مسبوق، مدفوعاً بالمشروعات الجديدة والطلب المتزايد على الوحدات السكنية والسياحية.\n\n## لماذا الفيوم؟\n\nتتميز الفيوم بموقع استراتيجي قريب من القاهرة، وتنوع في الفرص بين الوحدات السكنية والشاليهات والاستثمار المشترك.\n\n> الفيوم لم تعد خياراً ثانوياً؛ بل أصبحت وجهة رئيسية للمستثمرين الباحثين عن عائد مستقر ونمو رأسمالي.\n\n## أبرز المشروعات في 2025\n\nتتوسع المشروعات العقارية في نيو الفيوم والمناطق السياحية المحيطة، مع نماذج تمويل مرنة تناسب المستثمرين الأفراد والملكية المشتركة.",
+      en: "Fayoum is undergoing an unprecedented urban and investment transformation, driven by new projects and rising demand for residential and tourism units.\n\n## Why Fayoum?\n\nFayoum offers a strategic location near Cairo and a mix of opportunities across residential units, chalets, and shared investment models.\n\n> Fayoum is no longer a secondary option — it has become a primary destination for investors seeking stable returns and capital growth.\n\n## Key Projects in 2025\n\nReal estate projects continue to expand across New Fayoum and nearby tourism areas, with flexible financing models suited to individual and shared-ownership investors.",
+    },
+    image: unsplash("photo-1600585154340-be6161a56a0c"),
+    category: { ar: "عقارات الفيوم", en: "Fayoum Real Estate" },
+    publishedAt: "2024-07-01",
+    readingTimeMinutes: 7,
+    featured: true,
+    author: { ar: "م. أحمد السيد", en: "Eng. Ahmed El-Sayed" },
+    authorRole: { ar: "خبير عقاري", en: "Real Estate Expert" },
+    stats: [
+      {
+        value: "35%",
+        label: { ar: "ارتفاع الأسعار", en: "Price Increase" },
+      },
+      {
+        value: "14%",
+        label: { ar: "متوسط العائد", en: "Average Yield" },
+      },
+      {
+        value: "+100",
+        label: { ar: "مشروع", en: "Projects" },
+      },
+    ],
+  },
+  {
+    id: "2",
     slug: "real-estate-investment-guide",
     title: {
       ar: "دليلك الشامل للاستثمار العقاري في مصر",
@@ -476,16 +513,84 @@ const blog: BlogPost[] = [
       en: "Learn the basics of real estate investment and how to start your journey safely.",
     },
     content: {
-      ar: "الاستثمار العقاري من أقوى أدوات بناء الثروة على المدى الطويل...",
-      en: "Real estate investment is one of the strongest wealth-building tools over the long term...",
+      ar: "الاستثمار العقاري من أقوى أدوات بناء الثروة على المدى الطويل.\n\n## ابدأ بالأساسيات\n\nحدد هدفك الاستثماري، وميزانيتك، والأفق الزمني قبل اختيار العقار المناسب.\n\n> التخطيط الجيد يقلل المخاطر ويزيد فرص العائد المستقر.",
+      en: "Real estate investment is one of the strongest wealth-building tools over the long term.\n\n## Start with the basics\n\nDefine your investment goal, budget, and time horizon before choosing the right property.\n\n> Good planning reduces risk and improves the chance of stable returns.",
     },
     image: unsplash("photo-1560518883-ce09059eeffa"),
     category: { ar: "استثمار", en: "Investment" },
     publishedAt: "2026-02-15",
     readingTimeMinutes: 5,
+    author: { ar: "فريق بيتك", en: "Betak Team" },
+    authorRole: { ar: "فريق المحتوى", en: "Content Team" },
   },
   {
-    id: "2",
+    id: "3",
+    slug: "shared-ownership-explained",
+    title: {
+      ar: "الاستثمار المشترك في العقارات: دليل المبتدئين",
+      en: "Joint Investment in Real Estate: A Beginner’s Guide",
+    },
+    excerpt: {
+      ar: "شرح مبسط لنموذج الملكية المشتركة وكيف يمكنك البدء بمبلغ صغير.",
+      en: "A simple explanation of shared ownership and how you can start with a small amount.",
+    },
+    content: {
+      ar: "الملكية المشتركة تتيح لعدة مستثمرين امتلاك حصص في عقار واحد.\n\n## كيف يعمل النموذج؟\n\nتشارك في قيمة العقار وعوائده بنسبة حصتك، مع إدارة احترافية من الشركة.\n\n> هذا النموذج مناسب لمن يريد الدخول إلى السوق بمبلغ أقل وبمخاطر موزعة.",
+      en: "Shared ownership allows multiple investors to own shares in a single property.\n\n## How the model works\n\nYou share in the property’s value and returns according to your stake, with professional management from the company.\n\n> This model suits anyone who wants to enter the market with a smaller amount and distributed risk.",
+    },
+    image: unsplash("photo-1450101499163-c8848c66ca85"),
+    category: { ar: "الاستثمار المشترك", en: "Joint Investment" },
+    publishedAt: "2026-02-05",
+    readingTimeMinutes: 6,
+    author: { ar: "م. أحمد السيد", en: "Eng. Ahmed El-Sayed" },
+    authorRole: { ar: "خبير عقاري", en: "Real Estate Expert" },
+  },
+  {
+    id: "4",
+    slug: "real-estate-market-outlook",
+    title: {
+      ar: "توقعات السوق العقاري لعام 2026",
+      en: "Real Estate Market Outlook for 2026",
+    },
+    excerpt: {
+      ar: "نظرة على اتجاهات الأسعار والطلب والعوامل المؤثرة على السوق العقاري المصري.",
+      en: "A look at price trends, demand, and the factors shaping Egypt’s real estate market.",
+    },
+    content: {
+      ar: "يشهد السوق العقاري المصري تغيرات مهمة في العرض والطلب والتمويل.\n\n## ما الذي يحرك السوق؟\n\nالطلب على الوحدات السكنية والاستثمارية يستمر في المدن الجديدة والمناطق السياحية.\n\n> متابعة اتجاهات السوق تساعدك على اختيار التوقيت والموقع الأنسب.",
+      en: "Egypt’s real estate market is seeing important shifts in supply, demand, and financing.\n\n## What is driving the market?\n\nDemand for residential and investment units continues in new cities and tourism areas.\n\n> Tracking market trends helps you choose the right timing and location.",
+    },
+    image: unsplash("photo-1486406146926-c627a92ad1ab"),
+    category: { ar: "السوق العقاري", en: "Real Estate Market" },
+    publishedAt: "2026-01-20",
+    readingTimeMinutes: 5,
+    author: { ar: "فريق بيتك", en: "Betak Team" },
+    authorRole: { ar: "تحليل السوق", en: "Market Analysis" },
+  },
+  {
+    id: "5",
+    slug: "mortgage-financing-basics",
+    title: {
+      ar: "أساسيات التمويل العقاري للمستثمرين",
+      en: "Mortgage Financing Basics for Investors",
+    },
+    excerpt: {
+      ar: "كيف تختار خطة تمويل مناسبة وتوازن بين القسط والعائد المتوقع.",
+      en: "How to choose a suitable financing plan and balance installments with expected returns.",
+    },
+    content: {
+      ar: "التمويل العقاري أداة مهمة لتوسيع قدرتك الاستثمارية عند استخدامها بحذر.\n\n## قبل التوقيع على أي عقد\n\nقارن نسب الفائدة، مدة السداد، والرسوم الإضافية.\n\n> اختر تمويلاً يتوافق مع تدفقك النقدي المتوقع من الاستثمار.",
+      en: "Mortgage financing can expand your investment capacity when used carefully.\n\n## Before signing any contract\n\nCompare interest rates, repayment terms, and extra fees.\n\n> Choose financing that matches your expected cash flow from the investment.",
+    },
+    image: unsplash("photo-1560520653-9e0e4c89eb11"),
+    category: { ar: "التمويل العقاري", en: "Real Estate Finance" },
+    publishedAt: "2026-01-10",
+    readingTimeMinutes: 4,
+    author: { ar: "فريق بيتك", en: "Betak Team" },
+    authorRole: { ar: "فريق المحتوى", en: "Content Team" },
+  },
+  {
+    id: "6",
     slug: "new-fayoum-opportunity",
     title: {
       ar: "لماذا نيو الفيوم فرصة استثمارية واعدة؟",
@@ -496,33 +601,15 @@ const blog: BlogPost[] = [
       en: "Discover why demand for properties in New Fayoum is growing and expected returns.",
     },
     content: {
-      ar: "تشهد منطقة نيو الفيوم نمواً عمرانياً متسارعاً...",
-      en: "The New Fayoum area is experiencing rapid urban growth...",
+      ar: "تشهد منطقة نيو الفيوم نمواً عمرانياً متسارعاً.\n\n## فرص واعدة\n\nالطلب المتزايد والمشروعات الجديدة يجعلان المنطقة جاذبة للمستثمرين متوسطي وطويلي الأجل.",
+      en: "The New Fayoum area is experiencing rapid urban growth.\n\n## Promising opportunities\n\nRising demand and new projects make the area attractive for medium- and long-term investors.",
     },
-    image: unsplash("photo-1600585154340-be6161a56a0c"),
-    category: { ar: "عقارات", en: "Real Estate" },
+    image: unsplash("photo-1582268611958-ebfd161ef9cf"),
+    category: { ar: "عقارات الفيوم", en: "Fayoum Real Estate" },
     publishedAt: "2026-02-10",
     readingTimeMinutes: 4,
-  },
-  {
-    id: "3",
-    slug: "shared-ownership-explained",
-    title: {
-      ar: "الملكية المشتركة: كيف تعمل ولماذا تناسبك",
-      en: "Shared Ownership: How It Works and Why It Suits You",
-    },
-    excerpt: {
-      ar: "شرح مبسط لنموذج الملكية المشتركة وكيف يمكنك البدء بمبلغ صغير.",
-      en: "A simple explanation of shared ownership and how you can start with a small amount.",
-    },
-    content: {
-      ar: "الملكية المشتركة تتيح لعدة مستثمرين امتلاك حصص في عقار واحد...",
-      en: "Shared ownership allows multiple investors to own shares in a single property...",
-    },
-    image: unsplash("photo-1450101499163-c8848c66ca85"),
-    category: { ar: "استثمار", en: "Investment" },
-    publishedAt: "2026-02-05",
-    readingTimeMinutes: 6,
+    author: { ar: "م. أحمد السيد", en: "Eng. Ahmed El-Sayed" },
+    authorRole: { ar: "خبير عقاري", en: "Real Estate Expert" },
   },
 ];
 

@@ -19,8 +19,8 @@ export async function Header({ locale }: HeaderProps) {
     { href: "/", label: t("home") },
     { href: "/betak", label: t("betak") },
     { href: "/betak-share", label: t("betakShare") },
-    { href: "/units", label: t("units") },
-    { href: "/blogs", label: t("blogs") },
+    { href: "/products", label: t("units") },
+    { href: "/blog", label: t("blogs") },
     { href: "#contact", label: t("contact") },
   ];
 
@@ -33,7 +33,7 @@ export async function Header({ locale }: HeaderProps) {
             alt={settings.logoText}
             width={63}
             height={60}
-            className="h-12 w-auto object-contain sm:h-[60px]"
+            className="h-12 w-auto object-contain sm:h-15"
           />
         </Link>
 

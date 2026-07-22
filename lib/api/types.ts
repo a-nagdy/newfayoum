@@ -118,6 +118,11 @@ export interface Testimonial {
   rating: number;
 }
 
+export interface BlogStat {
+  value: string;
+  label: LocalizedString;
+}
+
 export interface BlogPost {
   id: string;
   slug: string;
@@ -128,6 +133,10 @@ export interface BlogPost {
   category: LocalizedString;
   publishedAt: string;
   readingTimeMinutes: number;
+  featured?: boolean;
+  author?: LocalizedString;
+  authorRole?: LocalizedString;
+  stats?: BlogStat[];
 }
 
 export interface ProductCategory {

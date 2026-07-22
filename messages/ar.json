@@ -70,11 +70,21 @@
   },
   "blog": {
     "title": "أحدث المقالات",
+    "pageTitle": "المدونة العقارية",
+    "pageSubtitle": "نصائح، تحليلات، وأحدث الأخبار عن الاستثمار العقاري في الفيوم ومصر.",
     "viewAll": "عرض الكل",
     "readMore": "اقرأ المزيد",
     "minRead": "دقائق قراءة",
     "backToBlog": "العودة للمدونة",
-    "related": "مقالات ذات صلة"
+    "related": "مقالات ذات صلة",
+    "allCategories": "الكل",
+    "featured": "مقال مميز",
+    "empty": "لا توجد مقالات في هذه الفئة حالياً.",
+    "newsletterTitle": "اشترك في نشرتنا البريدية",
+    "newsletterSubtitle": "احصل على أحدث المقالات والعروض الاستثمارية مباشرة إلى بريدك.",
+    "newsletterPlaceholder": "بريدك الإلكتروني",
+    "newsletterButton": "اشترك",
+    "newsletterSuccess": "تم الاشتراك بنجاح. شكراً لك!"
   },
   "footer": {
     "quickLinks": "روابط سريعة",
