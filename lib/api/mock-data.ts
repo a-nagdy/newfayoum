@@ -19,6 +19,9 @@ const unsplash = (id: string, w = 800) =>
 export const mockSiteSettings: SiteSettings = {
   siteName: { ar: "بيتك", en: "BITAK" },
   logoText: "BITAK",
+  logoUrl: "/assets/LogoBetakSvg.svg",
+  logoWidth: 63,
+  logoHeight: 60,
   phone: "+20 100 000 0000",
   email: "info@bitak.com",
   address: {

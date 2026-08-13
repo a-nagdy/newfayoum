@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { getSiteSettings } from "@/lib/api/client";
+import { getLogoSize, getLogoUrl } from "@/lib/api/types";
 import { Phone } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
@@ -14,10 +15,11 @@ interface HeaderProps {
 export async function Header({ locale }: HeaderProps) {
   const t = await getTranslations("nav");
   const settings = await getSiteSettings(locale);
+  const logoSize = getLogoSize(settings);
 
   const links = [
     { href: "/", label: t("home") },
-    { href: "/betak", label: t("betak") },
+    { href: "/betak", label: t("newFayoum") },
     { href: "/betak-share", label: t("betakShare") },
     { href: "/products", label: t("units") },
     { href: "/blog", label: t("blogs") },
@@ -29,11 +31,12 @@ export async function Header({ locale }: HeaderProps) {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:py-4 lg:px-6">
         <Link href="/" className="shrink-0">
           <Image
-            src="/assets/LogoBetakSvg.svg"
+            src={getLogoUrl(settings)}
             alt={settings.logoText}
-            width={63}
-            height={60}
-            className="h-12 w-auto object-contain sm:h-15"
+            width={logoSize.width}
+            height={logoSize.height}
+            className="object-contain"
+            style={{ width: logoSize.width, height: logoSize.height }}
           />
         </Link>
 
@@ -64,10 +67,7 @@ export async function Header({ locale }: HeaderProps) {
           >
             {t("startInvesting")}
           </Link>
-          <MobileNav
-            links={links}
-            startInvestingLabel={t("startInvesting")}
-          />
+          <MobileNav links={links} startInvestingLabel={t("startInvesting")} />
         </div>
       </div>
     </header>

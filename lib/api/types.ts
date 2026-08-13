@@ -2,9 +2,36 @@ import type { Locale } from "@/i18n/routing";
 
 export type LocalizedString = Record<Locale, string>;
 
+export const DEFAULT_LOGO_URL = "/assets/LogoBetakSvg.svg";
+export const DEFAULT_LOGO_WIDTH = 63;
+export const DEFAULT_LOGO_HEIGHT = 60;
+
+export function getLogoUrl(settings: { logoUrl?: string }) {
+  return settings.logoUrl?.trim() || DEFAULT_LOGO_URL;
+}
+
+function clampLogoSize(value: number | undefined, fallback: number) {
+  if (value == null || Number.isNaN(value)) return fallback;
+  return Math.min(400, Math.max(16, Math.round(value)));
+}
+
+export function getLogoSize(settings: {
+  logoWidth?: number;
+  logoHeight?: number;
+}) {
+  return {
+    width: clampLogoSize(settings.logoWidth, DEFAULT_LOGO_WIDTH),
+    height: clampLogoSize(settings.logoHeight, DEFAULT_LOGO_HEIGHT),
+  };
+}
+
 export interface SiteSettings {
   siteName: LocalizedString;
   logoText: string;
+  /** Uploaded logo URL. Falls back to DEFAULT_LOGO_URL when empty. */
+  logoUrl?: string;
+  logoWidth?: number;
+  logoHeight?: number;
   phone: string;
   email: string;
   address: LocalizedString;

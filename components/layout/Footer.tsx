@@ -2,7 +2,7 @@ import { Globe, Mail, MapPin, Phone, Share2 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { getSiteSettings } from "@/lib/api/client";
-import { pickLocalized } from "@/lib/api/types";
+import { getLogoSize, getLogoUrl, pickLocalized } from "@/lib/api/types";
 import type { Locale } from "@/i18n/routing";
 import Image from "next/image";
 
@@ -14,6 +14,7 @@ export async function Footer({ locale }: FooterProps) {
   const t = await getTranslations("footer");
   const tNav = await getTranslations("nav");
   const settings = await getSiteSettings(locale);
+  const logoSize = getLogoSize(settings);
 
   const quickLinks = [
     { href: "/", label: tNav("home") },
@@ -28,11 +29,12 @@ export async function Footer({ locale }: FooterProps) {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-3 lg:px-6">
         <div>
         <Image
-            src="/assets/LogoBetakSvg.svg"
+            src={getLogoUrl(settings)}
             alt={settings.logoText}
-            width={63}
-            height={60}
+            width={logoSize.width}
+            height={logoSize.height}
             className="object-contain"
+            style={{ width: logoSize.width, height: logoSize.height }}
           />
           <p className="mb-6 max-w-sm text-sm leading-7 text-white/75">
             {pickLocalized(settings.footerDescription, locale)}

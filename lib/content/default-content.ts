@@ -18,6 +18,9 @@ const unsplash = (id: string, w = 800) =>
 const settings: SiteSettings = {
   siteName: { ar: "بيتك", en: "BITAK" },
   logoText: "BITAK",
+  logoUrl: "/assets/LogoBetakSvg.svg",
+  logoWidth: 63,
+  logoHeight: 60,
   phone: "01000324050",
   email: "info@bitak.com",
   address: {

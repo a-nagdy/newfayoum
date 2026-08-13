@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { SiteSettings } from "@/lib/api/types";
+import { DEFAULT_LOGO_URL } from "@/lib/api/types";
 import { putApi } from "@/lib/admin/api-client";
 import {
   Field,
@@ -10,6 +11,7 @@ import {
   SaveButton,
   TextInput,
 } from "./FormControls";
+import { ImageUploadField } from "./ImageUploadField";
 
 export function SettingsForm({ initialData }: { initialData: SiteSettings }) {
   const [data, setData] = useState(initialData);
@@ -30,7 +32,33 @@ export function SettingsForm({ initialData }: { initialData: SiteSettings }) {
           value={data.siteName}
           onChange={(siteName) => setData({ ...data, siteName })}
         />
-        <Field label="Logo text">
+        <ImageUploadField
+          label="Site logo"
+          value={data.logoUrl ?? DEFAULT_LOGO_URL}
+          previewFit="contain"
+          onChange={(logoUrl) => setData({ ...data, logoUrl })}
+        />
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="Logo width (px)">
+            <TextInput
+              type="number"
+              value={String(data.logoWidth ?? 63)}
+              onChange={(v) =>
+                setData({ ...data, logoWidth: Number(v) || undefined })
+              }
+            />
+          </Field>
+          <Field label="Logo height (px)">
+            <TextInput
+              type="number"
+              value={String(data.logoHeight ?? 60)}
+              onChange={(v) =>
+                setData({ ...data, logoHeight: Number(v) || undefined })
+              }
+            />
+          </Field>
+        </div>
+        <Field label="Logo text (alt text)">
           <TextInput
             value={data.logoText}
             onChange={(logoText) => setData({ ...data, logoText })}

@@ -8,12 +8,14 @@ interface ImageUploadFieldProps {
   label: string;
   value: string;
   onChange: (url: string) => void;
+  previewFit?: "cover" | "contain";
 }
 
 export function ImageUploadField({
   label,
   value,
   onChange,
+  previewFit = "cover",
 }: ImageUploadFieldProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
@@ -62,7 +64,7 @@ export function ImageUploadField({
           <img
             src={value}
             alt=""
-            className="h-44 w-full object-cover"
+            className={`h-44 w-full ${previewFit === "contain" ? "object-contain bg-black/40 p-4" : "object-cover"}`}
           />
         </div>
       ) : (
