@@ -55,35 +55,6 @@ export default async function AdminHomePage() {
           </Link>
         ))}
       </div>
-
-      <div className="rounded-2xl border border-white/10 bg-[#1a2440] p-6">
-        <h2 className="mb-2 text-lg font-semibold text-[#c8a85a]">
-          Content API
-        </h2>
-        <p className="mb-4 text-sm text-gray-400">
-          GET routes are public and power the website. PUT saves from this
-          dashboard require your admin login.
-        </p>
-        <ul className="grid gap-2 font-mono text-xs text-white/80 sm:grid-cols-2">
-          {[
-            "/api/settings",
-            "/api/stats",
-            "/api/hero",
-            "/api/categories",
-            "/api/products",
-            "/api/investments",
-            "/api/features",
-            "/api/testimonials",
-            "/api/blog",
-            "/api/promo",
-            "/api/betakSharePage",
-          ].map((path) => (
-            <li key={path} className="rounded bg-black/30 px-3 py-2">
-              {path}
-            </li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 }
