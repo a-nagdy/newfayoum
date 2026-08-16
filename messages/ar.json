@@ -10,7 +10,7 @@
     "login": "تسجيل / دخول",
     "betak": "بيتك",
     "betakShare": "بيتك شير",
-    "units": "الوحدات",
+    "units": "اطروحات",
     "blogs": "المدونة",
     "startInvesting": "ابدأ الاستثمار",
     "newFayoum": "الفيوم الجديدة"
@@ -116,6 +116,26 @@
     "privacy": "سياسة الخصوصية",
     "terms": "الشروط والأحكام",
     "rights": "جميع الحقوق محفوظة."
+  },
+  "contactPage": {
+    "title": "تواصل معنا",
+    "subtitle": "أرسل لنا رسالة وسيتواصل معك فريقنا في أقرب وقت.",
+    "infoTitle": "بيانات التواصل",
+    "formTitle": "أرسل رسالة",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "subject": "الموضوع",
+    "message": "الرسالة",
+    "submit": "إرسال الرسالة",
+    "success": "شكراً لك! تم إرسال رسالتك بنجاح.",
+    "error": "تعذر إرسال الرسالة. حاول مرة أخرى.",
+    "whatsapp": "تواصل عبر واتساب",
+    "namePlaceholder": "اسمك",
+    "emailPlaceholder": "you@example.com",
+    "phonePlaceholder": "رقم الهاتف",
+    "subjectPlaceholder": "كيف يمكننا مساعدتك؟",
+    "messagePlaceholder": "اكتب رسالتك..."
   },
   "productsPage": {
     "title": "منتجاتنا",

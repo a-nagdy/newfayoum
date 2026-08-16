@@ -21,7 +21,7 @@ export async function Footer({ locale }: FooterProps) {
     { href: "/products", label: tNav("products") },
     { href: "/products", label: tNav("projects") },
     { href: "/blog", label: tNav("blog") },
-    { href: "#contact", label: tNav("contact") },
+    { href: "/contact", label: tNav("contact") },
   ];
 
   return (

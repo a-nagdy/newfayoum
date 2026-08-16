@@ -4,7 +4,7 @@ import { getSection } from "@/lib/content/store";
 import { listProducts } from "@/lib/db/products";
 import { getSiteUrl } from "@/lib/tracking/config";
 
-const STATIC_PATHS = ["", "/betak", "/betak-share", "/products", "/blog"];
+const STATIC_PATHS = ["", "/betak", "/betak-share", "/products", "/blog", "/contact"];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = getSiteUrl();

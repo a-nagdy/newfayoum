@@ -23,7 +23,7 @@ export async function Header({ locale }: HeaderProps) {
     { href: "/betak-share", label: t("betakShare") },
     { href: "/products", label: t("units") },
     { href: "/blog", label: t("blogs") },
-    { href: "#contact", label: t("contact") },
+    { href: "/contact", label: t("contact") },
   ];
 
   return (

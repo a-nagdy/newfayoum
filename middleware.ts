@@ -7,7 +7,12 @@ import { isAuthenticatedRequest } from "@/lib/auth/middleware";
 const intlMiddleware = createIntlMiddleware(routing);
 
 const PUBLIC_ADMIN_PATHS = ["/admin/login"];
-const PUBLIC_API_PATHS = ["/api/auth/login", "/api/health", "/api/meta/conversion"];
+const PUBLIC_API_PATHS = [
+  "/api/auth/login",
+  "/api/health",
+  "/api/meta/conversion",
+  "/api/contact",
+];
 
 const READ_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
 
